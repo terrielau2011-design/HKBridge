@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>HK橋樑 - 新來港學童學習系統</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--pri:#FF6B35;--sec:#4ECDC4;--acc:#FFE66D;--pur:#A855F7;--pink:#F472B6;--blue:#3B82F6;--bg:#FFF8F0;--card:#fff;--txt:#1F2937;--txtL:#6B7280;--ok:#10B981;--err:#EF4444;--warn:#F59E0B;--r:12px;--sh:0 2px 8px rgba(0,0,0,.08)}
+html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--txt);overflow:hidden;-webkit-tap-highlight-color:transparent}
+button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
+#app{height:100%;display:flex;flex-direction:column;max-width:480px;margin:0 auto;position:relative}
+.tab-bar{display:flex;background:var(--card);border-top:1px solid #E5E7EB;padding:6px 0;padding-bottom:env(safe-area-inset-bottom,6px);flex-shrink:0}
+.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;font-size:10px;color:var(--txtL)}.tab-btn.on{color:var(--pri)}.tab-btn .ti{font-size:22px}
+.page{display:none;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 24px}.page.on{display:block}
+.lp{display:none;flex:1;flex-direction:column;overflow:hidden}.lp.on{display:flex}
+.lh{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--card);border-bottom:1px solid #E5E7EB;flex-shrink:0}
+.lh .bb{font-size:14px;color:var(--pri);font-weight:600;padding:4px 8px}
+.lh .lt{font-size:16px;font-weight:700}.lh .ls{font-size:16px;font-weight:700;color:var(--pri)}
+.lb{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px}
+.hr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.ps{display:flex;align-items:center;gap:8px}.pe{font-size:44px}.pn{font-size:16px;font-weight:700}.pm{font-size:12px;color:var(--txtL)}
+.sr{display:flex;gap:16px}.si{text-align:center}.sv{font-size:16px;font-weight:700}.sl{font-size:10px;color:var(--txtL)}
+.xbw{margin-bottom:16px}.xbb{height:10px;background:#E5E7EB;border-radius:99px;overflow:hidden}.xbf{height:100%;background:var(--pri);border-radius:99px;transition:width .5s}.xxt{font-size:10px;color:var(--txtL);text-align:right;margin-top:2px}
+.st{font-size:16px;font-weight:700;margin-bottom:8px;margin-top:12px}
+.dr{display:flex;gap:8px;margin-bottom:12px}.dc{flex:1;background:var(--card);border-radius:var(--r);padding:10px 6px;text-align:center;border:2px solid #E5E7EB;font-size:12px;transition:.2s}.dc.dn{border-color:var(--ok);background:#F0FDF4}.dc .ci{font-size:20px;display:block;margin-bottom:2px}
+.mc{display:flex;align-items:center;background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:8px;border-left:4px solid var(--pri);box-shadow:var(--sh);transition:transform .15s}.mc:active{transform:scale(.98)}.mc .mi{font-size:28px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#FFF5F0;border-radius:10px;margin-right:12px;flex-shrink:0}.mc .mf{flex:1}.mc .mt{font-size:15px;font-weight:700}.mc .ms{font-size:12px;color:var(--txtL);margin-top:2px}.mc .ma{font-size:22px;color:var(--txtL)}
+.ts{display:flex;justify-content:space-around;background:var(--card);border-radius:var(--r);padding:14px;box-shadow:var(--sh)}.tst{text-align:center}.tsv{font-size:20px;font-weight:700;color:var(--pri)}.tsl{font-size:10px;color:var(--txtL);margin-top:2px}
+.sc{display:flex;align-items:center;background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:8px;box-shadow:var(--sh);transition:transform .15s}.sc:active{transform:scale(.98)}.sc .si2{font-size:28px;margin-right:12px}.sc .sf{flex:1}.sc .snt{font-size:15px;font-weight:700}.sc .snc{font-size:12px;color:var(--txtL);margin-top:2px}.sc .sa{font-size:22px;color:var(--txtL)}.sc.lk{opacity:.4}
+.lbs{background:var(--pur);border-radius:6px;padding:2px 8px;color:#fff;font-size:10px;font-weight:700;display:inline-block;margin-bottom:4px}
+.qe{display:flex;align-items:center;background:#FEF3C7;border-radius:var(--r);padding:14px;margin-bottom:12px;border:2px solid var(--warn)}.qe .qi{font-size:28px;margin-right:12px}.qe .qf{flex:1}.qe .qt2{font-size:16px;font-weight:700;color:#92400E}.qe .qs{font-size:12px;color:#B45309;margin-top:2px}.qe .sa{font-size:22px;color:#B45309}
+/* match game */
+.mh{background:#FEF3C7;border-radius:8px;padding:8px;margin-bottom:12px;text-align:center;font-size:13px;color:#92400E}
+.mbd{display:flex;justify-content:center;gap:16px;flex:1}.mcl{flex:1;max-width:160px}.mcl-l{font-size:13px;font-weight:700;color:var(--txtL);text-align:center;margin-bottom:8px}
+.mcd{background:var(--card);border-radius:var(--r);padding:12px;margin-bottom:8px;text-align:center;border:2px solid #E5E7EB;font-size:20px;font-weight:700;transition:all .2s;user-select:none}
+.mcd.sel{border-color:var(--pri);background:#FFF5F0;transform:scale(1.03)}.mcd.mat{border-color:var(--ok);background:#F0FDF4;color:var(--ok)}.mcd.wrg{border-color:var(--err);background:#FEF2F2;animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mhb{background:#EFF6FF;border-radius:var(--r);padding:10px;margin-top:12px;font-size:13px;color:#1E40AF;text-align:center}
+/* canto */
+.cc{font-size:56px;font-weight:700;text-align:center;margin:20px 0 8px}.cj{font-size:20px;color:var(--sec);font-weight:600;text-align:center;letter-spacing:2px;margin-bottom:20px}
+.mnc{background:#EFF6FF;border-radius:var(--r);padding:14px;text-align:center;margin-bottom:16px}.mnl{font-size:12px;color:var(--blue);margin-bottom:4px}.mnt{font-size:20px;font-weight:700;color:#1E40AF}
+.cbs{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}.cbt{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:var(--r);font-size:16px;font-weight:700;transition:transform .15s}.cbt:active{transform:scale(.97)}.cbt.pl{background:var(--sec);color:#fff}.cbt.rc{background:var(--card);color:var(--pink);border:2px solid var(--pink)}
+.bdc{background:var(--card);border-radius:var(--r);padding:14px;box-shadow:var(--sh)}.bdl{font-size:12px;color:var(--txtL);margin-bottom:8px}.bdr{display:flex;justify-content:center;gap:24px}.bdi{text-align:center}.bdc2{font-size:24px;font-weight:700}.bdj{font-size:14px;color:var(--sec);font-weight:600;margin-top:4px}
+/* quiz */
+.qpb{display:flex;flex-direction:column;align-items:center;background:#EFF6FF;border-radius:20px;padding:28px;margin-bottom:20px}.qpi{font-size:56px;margin-bottom:8px}.qpt{font-size:16px;color:var(--blue);font-weight:600}
+.qis{font-size:15px;color:var(--txtL);text-align:center;margin-bottom:16px}
+.ob{background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:8px;text-align:center;border:2px solid #E5E7EB;font-size:20px;font-weight:700;transition:all .2s}.ob:active{transform:scale(.97)}.ob.sl2{border-color:var(--pri);background:#FFF5F0}.ob.co{border-color:var(--ok);background:#F0FDF4}.ob.wr{border-color:var(--err);background:#FEF2F2}
+/* math */
+.qcd{background:var(--card);border-radius:var(--r);padding:18px;margin-bottom:12px;box-shadow:var(--sh)}.ql{font-size:12px;color:var(--txtL);margin-bottom:8px}.qt3{font-size:18px;font-weight:600;line-height:1.6}
+.tb{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}.tbb{display:flex;align-items:center;gap:4px;background:#F3F4F6;border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600}.tbb .tbi{font-size:14px}
+.mgc{background:#FDF4FF;border-radius:var(--r);padding:14px;margin-bottom:12px;border:2px solid #D8B4FE}.mgt{font-size:14px;font-weight:700;color:#7C3AED;margin-bottom:8px}
+.tmi{display:flex;align-items:center;flex-wrap:wrap;margin-bottom:4px;gap:4px}.tmo{font-size:16px;font-weight:700;color:#9333EA}.tma{color:#C084FC}.tmt{font-size:13px;color:#6B21A8;flex:1}
+.htc{background:#FEF3C7;border-radius:var(--r);padding:12px;margin-bottom:12px;font-size:14px;color:#92400E}
+.ir{display:flex;gap:8px;margin-bottom:12px}.ai{flex:1;background:var(--card);border-radius:var(--r);padding:14px;font-size:20px;font-weight:700;border:2px solid #E5E7EB;color:var(--txt);outline:none}.ai:focus{border-color:var(--pri)}
+.sbt{background:var(--pri);border-radius:var(--r);padding:0 24px;font-size:16px;font-weight:700;color:#fff;transition:opacity .2s}.sbt:disabled{opacity:.4}
+.fb{display:flex;align-items:flex-start;border-radius:var(--r);padding:14px;margin-bottom:12px;gap:12px}.fb.co2{background:#F0FDF4;border:2px solid var(--ok)}.fb.wr2{background:#FEF2F2;border:2px solid var(--err)}.fe{font-size:28px}.fi{flex:1}.ft2{font-size:16px;font-weight:700}.fd{font-size:13px;color:var(--txtL);margin-top:2px}.fs{font-size:13px;color:var(--txtL);margin-top:4px;font-style:italic}
+.nb{background:var(--pri);border-radius:var(--r);padding:14px;text-align:center;font-size:16px;font-weight:700;color:#fff;transition:transform .15s}.nb:active{transform:scale(.97)}
+/* result */
+.rp{display:none;flex:1;justify-content:center;align-items:center;flex-direction:column;padding:32px;text-align:center}.rp.on{display:flex}.re{font-size:64px;margin-bottom:12px}.rt2{font-size:32px;font-weight:700;margin-bottom:8px}.rs2{font-size:16px;color:var(--txtL);margin-bottom:24px}.rss{display:flex;gap:32px;margin-bottom:24px}.rsv{font-size:24px;font-weight:700;color:var(--pri)}.rsl{font-size:12px;color:var(--txtL);margin-top:4px}.rbtn{background:var(--pri);border-radius:16px;padding:14px 32px;font-size:16px;font-weight:700;color:#fff}
+/* pet */
+.pd{background:var(--card);border-radius:20px;padding:28px;text-align:center;margin-bottom:12px;box-shadow:var(--sh)}.pbg{font-size:80px;margin-bottom:8px}.pnb{font-size:22px;font-weight:700;margin-bottom:4px}.pmg{font-size:14px;color:var(--txtL);margin-bottom:12px}
+.hpbg{height:10px;background:#E5E7EB;border-radius:99px;overflow:hidden;width:80%;margin:0 auto}.hpf{height:100%;background:var(--ok);border-radius:99px;transition:width .5s}.hpl{font-size:10px;color:var(--txtL);margin-top:4px}
+.lvc{display:flex;align-items:center;background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:12px}.lvb{background:var(--pri);border-radius:var(--r);padding:8px 14px;margin-right:14px;font-weight:700;color:#fff}.lvi{flex:1}.lvt{font-size:16px;font-weight:700}.lvx{font-size:12px;color:var(--txtL)}
+.ssc{display:flex;gap:8px;margin-bottom:12px}.ssi{flex:1;background:var(--card);border-radius:var(--r);padding:14px;text-align:center;box-shadow:var(--sh)}.sse{font-size:24px;margin-bottom:4px}.ssv2{font-size:20px;font-weight:700}.ssl{font-size:10px;color:var(--txtL)}
+.pg{display:flex;flex-wrap:wrap;gap:8px}.pi2{width:calc(33.33% - 6px);background:var(--card);border-radius:var(--r);padding:12px;text-align:center;border:2px solid #E5E7EB;transition:.2s}.pi2.ac{border-color:var(--pri);background:#FFF5F0}.pi2.lk{opacity:.35}.pie{font-size:32px}.pin{font-size:11px;color:var(--txtL)}
+.lr{display:flex;align-items:center;background:var(--card);border-radius:8px;padding:8px 12px;margin-bottom:4px}.lr.cur{background:#FFF5F0;border:1px solid var(--pri)}.lr .lrl{font-weight:700;width:46px;font-size:14px}.lr .lrt{flex:1;font-size:13px;color:var(--txtL)}.lr .lrt.rd{color:var(--txt);font-weight:600}.lr .lrx{font-size:11px;color:var(--txtL);width:55px;text-align:right}.lr .lrm{color:var(--pri);margin-left:4px;font-size:12px}
+/* parent */
+.pp{background:#F8FAFC}.pht{font-size:22px;font-weight:700}.phs{font-size:14px;color:var(--txtL);margin-top:4px}
+.smc{background:var(--card);border-radius:16px;padding:18px;margin-bottom:12px;box-shadow:var(--sh)}.cmt{font-size:16px;font-weight:700;margin-bottom:12px}
+.sms{display:flex;justify-content:space-around;margin-bottom:12px}.smv{font-size:22px;font-weight:700;color:var(--pri);text-align:center}.sml{font-size:10px;color:var(--txtL);text-align:center;margin-top:2px}
+.pbg2{height:6px;background:#E5E7EB;border-radius:99px;overflow:hidden}.pf2{height:100%;background:var(--pri);border-radius:99px;transition:width .5s}
+.sur{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #F3F4F6}.sur .sui{font-size:18px;margin-right:8px;width:24px}.sur .sun{flex:1;font-size:14px}.sur .sud{font-size:12px;color:var(--txtL)}.sur .sud.dn{color:var(--ok);font-weight:600}
+.guc{background:var(--card);border-radius:16px;margin-bottom:8px;overflow:hidden}.guh{display:flex;align-items:center;padding:14px}.gui{font-size:22px;margin-right:8px}.gut{flex:1;font-size:15px;font-weight:700}.gua{font-size:14px;color:var(--txtL)}
+.gub{padding:0 14px 14px}.tpi{padding:10px 0;border-top:1px solid #F3F4F6}.tps{font-size:13px;font-weight:600;margin-bottom:8px}
+.tpd{background:#F0FDF4;border-radius:8px;padding:8px 10px;margin-bottom:6px}.tpdl{font-size:10px;font-weight:700;color:var(--ok)}.tpdt{font-size:12px;color:#166534}
+.tpn{background:#FEF2F2;border-radius:8px;padding:8px 10px}.tpnl{font-size:10px;font-weight:700;color:var(--err)}.tpnt{font-size:12px;color:#991B1B}
+/* nav row */
+.nr{display:flex;gap:8px;padding:12px 16px;flex-shrink:0}.nrb{flex:1;padding:12px;border-radius:var(--r);text-align:center;border:1px solid #E5E7EB;font-size:14px;color:var(--txtL);transition:transform .15s}.nrb:active{transform:scale(.97)}.nrb.pm{background:var(--pri);border:none;color:#fff;font-weight:700}
+/* progress bar */
+.pbr{height:4px;background:#E5E7EB}.pbf{height:100%;background:var(--pur);transition:width .3s}
+</style>
+</head>
+<body>
+<div id="app">
+<!-- ===== HOME ===== -->
+<div class="page on" id="pg-home">
+<div class="hr"><div class="ps"><span class="pe" id="h-pe">🐉</span><div><div class="pn" id="h-pn">小龍</div><div class="pm" id="h-pm">😊 好開心！</div></div></div><div class="sr"><div class="si"><div class="sv" id="h-lv">Lv.1</div><div class="sl">等級</div></div><div class="si"><div class="sv" id="h-co">50</div><div class="sl">🪙</div></div><div class="si"><div class="sv" id="h-sk">0</div><div class="sl">🔥</div></div></div></div>
+<div class="xbw"><div class="xbb"><div class="xbf" id="h-xpb" style="width:0%"></div></div><div class="xxt" id="h-xpt">0 / 50 XP</div></div>
+<div class="st">📋 今日任務</div>
+<div class="dr"><div class="dc" id="d-ch"><span class="ci">🔤</span>繁體字</div><div class="dc" id="d-ca"><span class="ci">🗣️</span>粵語</div><div class="dc" id="d-ma"><span class="ci">🔢</span>數學</div></div>
+<div class="st">🎯 開始學習</div>
+<div class="mc" onclick="go('cs')" style="border-left-color:var(--pri)"><div class="mi">🔤</div><div class="mf"><div class="mt">繁體字認讀</div><div class="ms">簡繁連連看</div></div><div class="ma">›</div></div>
+<div class="mc" onclick="go('ks')" style="border-left-color:var(--sec)"><div class="mi">🗣️</div><div class="mf"><div class="mt">粵語拼音</div><div class="ms">聽音辨字</div></div><div class="ma">›</div></div>
+<div class="mc" onclick="go('ms')" style="border-left-color:var(--pur)"><div class="mi">🔢</div><div class="mf"><div class="mt">數學對標</div><div class="ms">應用題闖關</div></div><div class="ma">›</div></div>
+<div class="st">📊 今日表現</div>
+<div class="ts"><div class="tst"><div class="tsv" id="t-xp">0</div><div class="tsl">XP</div></div><div class="tst"><div class="tsv" id="t-ac">0%</div><div class="tsl">正確率</div></div><div class="tst"><div class="tsv" id="t-cr">0</div><div class="tsl">答對</div></div></div>
+</div>
+
+<!-- ===== CHAR SELECT ===== -->
+<div class="lp" id="pg-cs"><div class="lh"><button class="bb" onclick="home()">← 返回</button><div class="lt">🔤 繁體字認讀</div><div></div></div><div class="lb" id="cs-list"></div></div>
+<!-- ===== CHAR GAME ===== -->
+<div class="lp" id="pg-cg"><div class="lh"><button class="bb" onclick="go('cs')">✕</button><div class="lt" id="cg-t"></div><div class="ls" id="cg-s">0/5</div></div><div class="mh">先撳左邊嘅繁體字，再撳右邊簡體字配對</div><div class="mbd"><div class="mcl"><div class="mcl-l">繁體</div><div id="cg-tc"></div></div><div class="mcl"><div class="mcl-l">简体</div><div id="cg-sc"></div></div></div><div class="mhb" id="cg-h" style="display:none"></div></div>
+<!-- ===== CANTO SELECT ===== -->
+<div class="lp" id="pg-ks"><div class="lh"><button class="bb" onclick="home()">← 返回</button><div class="lt">🗣️ 粵語拼音</div><div></div></div><div class="lb" id="ks-list"></div></div>
+<!-- ===== CANTO LEARN ===== -->
+<div class="lp" id="pg-kl"><div class="lh"><button class="bb" onclick="go('ks')">✕</button><div class="lt" id="kl-t"></div><div class="ls" id="kl-p">1/6</div></div><div class="lb" id="kl-b"></div></div>
+<!-- ===== CANTO QUIZ ===== -->
+<div class="lp" id="pg-kq"><div class="lh"><button class="bb" onclick="go('ks')">✕</button><div class="lt">聽音辨字</div><div class="ls" id="kq-s">0/0</div></div><div class="lb" id="kq-b"></div></div>
+<!-- ===== MATH SELECT ===== -->
+<div class="lp" id="pg-ms"><div class="lh"><button class="bb" onclick="home()">← 返回</button><div class="lt">🔢 數學對標</div><div></div></div><div class="lb" id="ms-list"></div></div>
+<!-- ===== MATH GAME ===== -->
+<div class="lp" id="pg-mg"><div class="lh"><button class="bb" onclick="go('ms')">✕</button><div class="lt" id="mg-t"></div><div class="ls" id="mg-s">0/0</div></div><div class="pbr"><div class="pbf" id="mg-pb" style="width:0%"></div></div><div class="lb" id="mg-b"></div></div>
+<!-- ===== RESULT ===== -->
+<div class="rp" id="pg-rs"><div class="re" id="rs-e">🎉</div><div class="rt2" id="rs-t">好叻呀！</div><div class="rs2" id="rs-s"></div><div class="rss" id="rs-ss"></div><button class="rbtn" onclick="home()">繼續學習</button></div>
+<!-- ===== PET ===== -->
+<div class="page" id="pg-pet"></div>
+<!-- ===== PARENT ===== -->
+<div class="page pp" id="pg-par"></div>
+<!-- ===== TAB ===== -->
+<div class="tab-bar"><button class="tab-btn on" onclick="tab('home')"><span class="ti">🏠</span>學習</button><button class="tab-btn" onclick="tab('pet')"><span class="ti">🐾</span>寵物</button><button class="tab-btn" onclick="tab('parent')"><span class="ti">👨‍👩‍👧</span>家長</button></div>
+</div>
+<script>
+const G={xp:0,coins:50,lv:1,streak:0,tXP:0,tC:0,tT:0,pet:'dragon',pH:80,daily:{ch:false,ca:false,ma:false}};
+const CS=[{id:'classroom',t:'課堂用語',t2:'课堂用语',i:'🏫',p:[['老師','老师'],['同學','同学'],['功課','功课'],['考試','考试'],['書包','书包'],['筆盒','笔盒'],['操場','操场'],['飯堂','饭堂']]},{id:'family',t:'家人稱呼',t2:'家人称呼',i:'👨‍👩‍👧',p:[['媽媽','妈妈'],['爸爸','爸爸'],['爺爺','爷爷'],['嫲嫲','奶奶'],['外公','外公'],['婆婆','姥姥'],['哥哥','哥哥'],['家姐','姐姐']]},{id:'daily',t:'日常用語',t2:'日常用语',i:'☀️',p:[['食飯','吃饭'],['飲水','喝水'],['沖涼','洗澡'],['瞓覺','睡觉'],['著衫','穿衣服'],['行路','走路'],['搭車','坐车'],['買嘢','买东西']]},{id:'school',t:'學校事物',t2:'学校事物',i:'📚',p:[['圖書館','图书馆'],['電腦室','电脑室'],['音樂堂','音乐课'],['體育堂','体育课'],['美勞堂','手工课'],['常識堂','常识课'],['小息','小休'],['放學','放学']]},{id:'emotion',t:'感覺心情',t2:'感觉心情',i:'😊',p:[['開心','开心'],['驚','害怕'],['肚餓','肚子饿'],['攰','累'],['唔開心','不开心'],['緊張','紧张'],['好悶','好无聊'],['開心到跳','开心得跳起来']]},{id:'weather',t:'天氣自然',t2:'天气自然',i:'🌤️',p:[['打風','刮台风'],['落雨','下雨'],['好熱','好热'],['好凍','好冷'],['行雷','打雷'],['閃電','闪电'],['潮濕','潮湿'],['乾燥','干燥']]}];
+const KD=[{id:'greetings',t:'打招呼',i:'👋',items:[['早晨','zou2 san4','早上好'],['你好','nei5 hou2','你好'],['再見','zoi3 gin3','再见'],['唔該','m4 goi1','谢谢/麻烦你'],['多謝','do1 ze6','谢谢（收到礼物）'],['對唔住','deoi3 m4 zyu6','对不起']]},{id:'classroom',t:'課堂指令',i:'✋',items:[['坐好','co5 hou2','坐好'],['安靜','on1 zing6','安静'],['舉手','geoi2 sau2','举手'],['收書','sau1 syu1','收书'],['打開書','daa2 hoi1 syu1','打开书'],['抄低','caau1 dai1','抄下来']]},{id:'playground',t:'小息用語',i:'🏃',items:[['一齊玩','jat1 cai4 waan2','一起玩'],['等等我','dang2 dang2 ngo5','等等我'],['好開心','hou2 hoi1 sam1','好开心'],['唔玩啦','m4 waan2 laa1','不玩了'],['借下','ze3 haa5','借一下'],['還畀我','waan4 bei2 ngo5','还给我']]},{id:'canteen',t:'飯堂小食',i:'🍱',items:[['食咩','sik6 me1','吃什么'],['好肚餓','hou2 tou5 ngo6','好饿'],['飲品','jam2 ban2','饮料'],['小食','siu2 sik6','零食'],['好味','hou2 mei6','好吃'],['飽啦','baau2 laa1','饱了']]}];
+const LQ=[['早晨',['早晨','早陳','造塵','走晨'],0],['唔該',['唔該','吾該','唔改','唔蓋'],0],['舉手',['舉手','舉首','巨手','拒收'],0],['好開心',['好開心','好凍心','好開新','好改心'],0],['食飯',['食飯','十翻','失範','食反'],0],['多謝',['多謝','多寫','多瀉','刀謝'],0],['安靜',['安靜','安淨','安靖','按靜'],0],['再見',['再見','在見','再建','載見'],0]];
+const MD=[{id:'p1a',lv:'P1',t:'加法入門',t2:'加法入门',i:'➕',q:[{tx:'小明有3個蘋果，媽媽再畀佢5個，小明「共」有幾多個蘋果？',tx2:'小明有3个苹果，妈妈再给他5个，小明"共"有多少个苹果？',th:[['共','共 = 总共 = 一共（全部加在一起）']],a:8,u:'個',u2:'个',so:'3+5=8'},{tx:'書架上有4本書，爸爸再放6本上去，書架上「一共」有幾多本書？',tx2:'书架上有4本书，爸爸再放6本上去，书架上"一共"有多少本书？',th:[['一共','一共 = 合起来 = 加在一起']],a:10,u:'本',u2:'本',so:'4+6=10'},{tx:'小華有7粒糖，小美有5粒糖，佢哋「合共」有幾多粒糖？',tx2:'小华有7粒糖，小美有5粒糖，他们"合共"有多少粒糖？',th:[['合共','合共 = 合起来 = 两个人加在一起']],a:12,u:'粒',u2:'粒',so:'7+5=12'}]},{id:'p1s',lv:'P1',t:'減法入門',t2:'减法入门',i:'➖',q:[{tx:'姐姐有10塊餅乾，食咗4塊，「餘下」幾多塊餅乾？',tx2:'姐姐有10块饼干，吃了4块，"余下"多少块饼干？',th:[['餘下','餘下 = 剩下 = 还有多少（用减法）']],a:6,u:'塊',u2:'块',so:'10-4=6'},{tx:'樹上有12隻雀仔，飛走咗5隻，「還有」幾多隻雀仔？',tx2:'树上有12只小鸟，飞走了5只，"还有"多少只小鸟？',th:[['還有','還有 = 还有 = 剩下多少']],a:7,u:'隻',u2:'只',so:'12-5=7'},{tx:'盒裏有15粒珠仔，攞走咗8粒，「剩下」幾多粒？',tx2:'盒里有15粒珠子，拿走了8粒，"剩下"多少粒？',th:[['剩下','剩下 = 余下 = 还有多少']],a:7,u:'粒',u2:'粒',so:'15-8=7'}]},{id:'p2c',lv:'P2',t:'比較與相差',t2:'比较与相差',i:'⚖️',q:[{tx:'小明有15張貼紙，小華有9張貼紙，佢哋「相差」幾多張？',tx2:'小明有15张贴纸，小华有9张贴纸，他们"相差"多少张？',th:[['相差','相差 = 差多少 = 多出的部分（用减法）']],a:6,u:'張',u2:'张',so:'15-9=6'},{tx:'紅繩長24cm，藍繩長16cm，紅繩比藍繩長幾多cm？',tx2:'红绳长24cm，蓝绳长16cm，红绳比蓝绳长多少cm？',th:[['比...長','比...長 = 比它多多少（用减法）']],a:8,u:'cm',u2:'cm',so:'24-16=8'}]},{id:'p2m',lv:'P2',t:'乘法初探',t2:'乘法初探',i:'✖️',q:[{tx:'每盒有6塊朱古力，4盒「共有」幾多塊朱古力？',tx2:'每盒有6块巧克力，4盒"共有"多少块巧克力？',th:[['每...共有','每...共有 = 每个一样多，几盒就乘几']],a:24,u:'塊',u2:'块',so:'6×4=24'}]},{id:'p3d',lv:'P3',t:'除法與分配',t2:'除法与分配',i:'➗',q:[{tx:'有24粒糖，「平均分」畀6個小朋友，每人分到幾多粒？',tx2:'有24粒糖，"平均分"给6个小朋友，每人分到多少粒？',th:[['平均分','平均分 = 每人一样多（用除法）']],a:4,u:'粒',u2:'粒',so:'24÷6=4'}]}];
+const PETS=[{id:'dragon',n:'小龍',n2:'小龙',e:'🐉',ul:0},{id:'cat',n:'貓咪',n2:'猫咪',e:'🐱',ul:3},{id:'owl',n:'貓頭鷹',n2:'猫头鹰',e:'🦉',ul:5},{id:'panda',n:'熊貓',n2:'熊猫',e:'🐼',ul:8},{id:'unicorn',n:'獨角獸',n2:'独角兽',e:'🦄',ul:12}];
+const LVS=[{l:1,x:0,t:'新來小冒險家',t2:'新来小冒险家'},{l:2,x:50,t:'好奇探索者',t2:'好奇探索者'},{l:3,x:120,t:'繁體小學徒',t2:'繁体小学徒'},{l:4,x:200,t:'語言小達人',t2:'语言小达人'},{l:5,x:300,t:'粵語小能手',t2:'粤语小能手'},{l:6,x:420,t:'數學小精靈',t2:'数学小精灵'},{l:7,x:560,t:'適應小先鋒',t2:'适应小先锋'},{l:8,x:720,t:'香港通',t2:'香港通'},{l:9,x:900,t:'超級橋樑',t2:'超级桥梁'},{l:10,x:1100,t:'終極融合者',t2:'终极融合者'}];
+const PG=[{t:'夸奖的艺术',i:'🌟',tips:[{s:'孩子做对了一道题',d:'「你真棒！这么难的题都做对了！」',n:'「这才一道，还有好多呢」'},{s:'孩子做错了题',d:'「没关系，我们一起看看哪里不太明白」',n:'「怎么又错了？这么简单都不会」'},{s:'孩子主动学习',d:'「你自己开始学习啦？太了不起了！」',n:'「早该学了，还不快做」'},{s:'孩子想休息',d:'「你学了好久呢，休息一下吧」',n:'「才学多久就要玩了」'}]},{t:'广东话小贴士',i:'🗣️',tips:[{s:'孩子说听不懂老师的话',d:'「没关系，慢慢来，多听几次就熟了」',n:'「你要学会适应啊」'},{s:'孩子说出广东话词汇',d:'「哇，你学会了广东话！好厉害！」',n:'「发音不对，要这样说...」'},{s:'孩子不敢和同学说话',d:'「试试用一个广东话词打招呼，同学们会很开心的」',n:'「你怎么不跟同学说话」'}]},{t:'功课辅导策略',i:'📝',tips:[{s:'繁体字看不懂',d:'「按一下魔术棒就能看到简体啦，多看几次就记住了」',n:'「繁体字都看不懂怎么办」'},{s:'数学术语不理解',d:'「这个"余下"就是"剩下"的意思，用减法」',n:'「这都不懂？上课有没有听」'},{s:'孩子说功课太多',d:'「我们把它分成小块，做完一小块休息5分钟」',n:'「人家都做完了你还在磨蹭」'}]},{t:'屏幕时间管理',i:'⏰',tips:[{s:'孩子想打游戏不想学习',d:'「先完成今天的任务，宠物就升级了！然后可以玩一会儿」',n:'「不许打游戏！」'},{s:'孩子已经玩了很久手机',d:'「今天的任务还没完成呢，我们一起做吧」',n:'「又打机！收起来！」'},{s:'想设定规则',d:'「我们约定：做完学习任务 = 30分钟游戏时间」',n:'「以后都不许打游戏」'}]}];
+
+function $(s){return document.getElementById(s)}
+function show(id){document.querySelectorAll('.page,.lp,.rp').forEach(e=>e.classList.remove('on'));$(id).classList.add('on')}
+function home(){show('pg-home');updHome()}
+function go(p){show('pg-'+p);if(p==='cs')renderCS();if(p==='ks')renderKS();if(p==='ms')renderMS()}
+function tab(t){document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('on',['home','pet','parent'][i]===t));if(t==='home'){show('pg-home');updHome()}if(t==='pet'){show('pg-pet');renderPet()}if(t==='parent'){show('pg-par');renderPar()}}
+
+function addXP(n){G.xp+=n;G.tXP+=n;let nl=G.lv;for(let i=LVS.length-1;i>=0;i--)if(G.xp>=LVS[i].x){nl=LVS[i].l;break}G.lv=nl}
+function correct(){G.streak++;G.tC++;G.tT++;G.pH=Math.min(100,G.pH+5);addXP(10);G.coins+=5}
+function wrong(){G.streak=0;G.tT++;G.pH=Math.max(0,G.pH-3)}
+function updHome(){
+  const pet=PETS.find(p=>p.id===G.pet);
+  $('h-pe').textContent=pet.e;$('h-pn').textContent=pet.n;
+  $('h-pm').textContent=G.pH>70?'😊 好開心！':G.pH>40?'🙂 還可以':'😢 唔開心...';
+  $('h-lv').textContent='Lv.'+G.lv;$('h-co').textContent=G.coins;$('h-sk').textContent=G.streak;
+  const cx=LVS.find(l=>l.l===G.lv).x,nx=LVS.find(l=>l.l===G.lv+1)?.x||1500;
+  $('h-xpb').style.width=((G.xp-cx)/(nx-cx)*100)+'%';$('h-xpt').textContent=G.xp+' / '+nx+' XP';
+  $('d-ch').classList.toggle('dn',G.daily.ch);$('d-ca').classList.toggle('dn',G.daily.ca);$('d-ma').classList.toggle('dn',G.daily.ma);
+  $('d-ch').querySelector('.ci').textContent=G.daily.ch?'✅':'🔤';$('d-ca').querySelector('.ci').textContent=G.daily.ca?'✅':'🗣️';$('d-ma').querySelector('.ci').textContent=G.daily.ma?'✅':'🔢';
+  $('t-xp').textContent=G.tXP;$('t-cr').textContent=G.tC;$('t-ac').textContent=G.tT?Math.round(G.tC/G.tT*100)+'%':'0%';
+}
+
+// ===== 繁體字連連看 =====
+let CG={selT:null,matched:[],score:0};
+function renderCS(){$('cs-list').innerHTML=CS.map(s=>`<div class="sc" onclick="startCG('${s.id}')"><span class="si2">${s.i}</span><div class="sf"><div class="snt">${s.t}</div><div class="snc">${s.p.length} 組</div></div><span class="sa">›</span></div>`).join('')}
+function startCG(id){const s=CS.find(x=>x.id===id);const pairs=[...s.p].sort(()=>Math.random()-.5).slice(0,5);CG={set:s,pairs,selT:null,matched:[],score:0};$('cg-t').textContent=s.t;$('cg-s').textContent='0/5';renderCGboard();go('cg')}
+function renderCGboard(){
+  const t=CG.pairs.map((p,i)=>`<div class="mcd${CG.matched.includes('t'+i)?' mat':''}${CG.selT===i?' sel':''}" data-type="t" data-i="${i}" onclick="cgTap(this)">${p[0]}</div>`).join('');
+  const simp=[...CG.pairs.map((p,i)=>({t:p[1],i}))].sort(()=>Math.random()-.5);
+  const s=simp.map(x=>`<div class="mcd${CG.matched.includes('s'+x.i)?' mat':''}" data-type="s" data-i="${x.i}" onclick="cgTap(this)">${x.t}</div>`).join('');
+  $('cg-tc').innerHTML=t;$('cg-sc').innerHTML=s;
+}
+function cgTap(el){
+  const type=el.dataset.type,i=parseInt(el.dataset.i);
+  if(CG.matched.includes(type+i))return;
+  if(type==='t'){CG.selT=i;renderCGboard()}
+  else if(CG.selT!==null){
+    if(i===CG.selT){CG.matched.push('t'+CG.selT,'s'+i);CG.score++;correct();$('cg-s').textContent=CG.score+'/5';CG.selT=null;renderCGboard();
+      if(CG.matched.length===10){G.daily.ch=true;addXP(30);G.coins+=20;setTimeout(()=>showResult('🎉','好叻呀！','全部配對完成！'+CG.score+'/5',CG.score*10+30,CG.score*5+20),500)}
+    }else{wrong();el.classList.add('wrg');CG.selT=null;setTimeout(renderCGboard,400)}
+  }
+}
+
+// ===== 粵語拼音 =====
+let KL={set:null,idx:0};
+function renderKS(){
+  $('ks-list').innerHTML=`<div class="qe" onclick="startKQ()"><span class="qi">🎯</span><div class="qf"><div class="qt2">聽音辨字挑戰</div><div class="qs">${LQ.length} 題聽力測驗</div></div><span class="sa">›</span></div><div class="st">📚 分類學習</div>`+KD.map(s=>`<div class="sc" onclick="startKL('${s.id}')"><span class="si2">${s.i}</span><div class="sf"><div class="snt">${s.t}</div><div class="snc">${s.items.length} 個詞彙</div></div><span class="sa">›</span></div>`).join('');
+}
+function startKL(id){KL.set=KD.find(x=>x.id===id);KL.idx=0;renderKLC();go('kl')}
+function renderKLC(){
+  const it=KL.set.items[KL.idx],isLast=KL.idx>=KL.set.items.length-1;
+  $('kl-t').textContent=KL.set.t;$('kl-p').textContent=(KL.idx+1)+'/'+KL.set.items.length;
+  const chars=it[0].split(''),jps=it[1].split(' ');
+  $('kl-b').innerHTML=`<div class="cc">${it[0]}</div><div class="cj">${it[1]}</div><div class="mnc"><div class="mnl">普通話意思</div><div class="mnt">${it[2]}</div></div><div class="cbs"><button class="cbt pl" onclick="alert('🔊 完整版將播放「${it[0]}」嘅廣東話發音')">🔊 播放發音</button><button class="cbt rc" onclick="alert('🎙️ 完整版將可錄音對照')">🎙️ 錄音對照</button></div><div class="bdc"><div class="bdl">拼音拆解</div><div class="bdr">${chars.map((c,i)=>`<div class="bdi"><div class="bdc2">${c}</div><div class="bdj">${jps[i]||''}</div></div>`).join('')}</div></div><div class="nr"><button class="nrb pm" onclick="klNext()">${isLast?'完成！✓':'下一個 →'}</button></div>`;
+}
+function klNext(){if(KL.idx>=KL.set.items.length-1){G.daily.ca=true;addXP(20);G.coins+=15;home()}else{KL.idx++;renderKLC()}}
+
+// ===== 粵語測驗 =====
+let KQ={idx:0,sc:0,tt:0,ans:null};
+function startKQ(){KQ={idx:0,sc:0,tt:0,ans:null};renderKQC();go('kq')}
+function renderKQC(){
+  const q=LQ[KQ.idx];$('kq-s').textContent=KQ.sc+'/'+KQ.tt;
+  $('kq-b').innerHTML=`<div class="qpb"><span class="qpi">🔊</span><div class="qpt">點擊聽發音</div></div><div class="qis">選出你聽到嘅字</div>${q[1].map((o,i)=>`<div class="ob" onclick="kqAns(${i})">${o}</div>`).join('')}`;
+}
+function kqAns(i){
+  if(KQ.ans!==null)return;KQ.ans=i;KQ.tt++;
+  const q=LQ[KQ.idx],ok=i===q[2];
+  const btns=$('kq-b').querySelectorAll('.ob');
+  btns.forEach((b,j)=>{if(j===q[2])b.classList.add('co');if(j===i&&!ok)b.classList.add('wr')});
+  if(ok){KQ.sc++;correct()}else wrong();
+  $('kq-s').textContent=KQ.sc+'/'+KQ.tt;
+  setTimeout(()=>{KQ.ans=null;if(KQ.idx>=LQ.length-1){G.daily.ca=true;if(KQ.sc===LQ.length){addXP(30);G.coins+=20}showResult(KQ.sc>=6?'🌟':'👍',KQ.sc>=6?'好叻呀！':'繼續加油！','答啱 '+KQ.sc+'/'+KQ.tt,KQ.sc*10,KQ.sc*5)}else{KQ.idx++;renderKQC()}},1200);
+}
+
+// ===== 數學 =====
+let MG={set:null,idx:0,sc:0,tt:0,ans:null,simp:false,hint:false,magic:false};
+function renderMS(){$('ms-list').innerHTML=MD.map(s=>`<div class="sc" onclick="startMG('${s.id}')"><span class="si2">${s.i}</span><div class="sf"><span class="lbs">${s.lv}</span><div class="snt">${s.t}</div><div class="snc">${s.q.length} 題</div></div><span class="sa">›</span></div>`).join('')}
+function startMG(id){MG={set:MD.find(x=>x.id===id),idx:0,sc:0,tt:0,ans:null,simp:false,hint:false,magic:false};$('mg-t').textContent=MG.set.t;renderMGC();go('mg')}
+function renderMGC(){
+  const q=MG.set.q[MG.idx],isLast=MG.idx>=MG.set.q.length-1;
+  $('mg-s').textContent=MG.sc+'/'+MG.tt;$('mg-pb').style.width=((MG.idx+1)/MG.set.q.length*100)+'%';
+  const txt=MG.simp?q.tx2:q.tx,u=MG.simp?q.u2:q.u;
+  let h=`<div class="qcd"><div class="ql">第 ${MG.idx+1} 題（${u}）</div><div class="qt3">${txt}</div><div class="tb"><button class="tbb" onclick="MG.simp=!MG.simp;renderMGC()"><span class="tbi">🔄</span>${MG.simp?'看繁體':'看簡體'}</button><button class="tbb" onclick="MG.magic=!MG.magic;renderMGC()"><span class="tbi">🪄</span>魔術棒</button><button class="tbb" onclick="MG.hint=!MG.hint;renderMGC()"><span class="tbi">💡</span>提示</button></div></div>`;
+  if(MG.magic)h+=`<div class="mgc"><div class="mgt">🪄 術語翻譯</div>${q.th.map(t=>`<div class="tmi"><span class="tmo">「${t[0]}」</span><span class="tma">→</span><span class="tmt">${t[1]}</span></div>`).join('')}</div>`;
+  if(MG.hint)h+=`<div class="htc">💡 諗諗吓：呢個題目用咩運算方法？加法？減法？乘法？除法？</div>`;
+  if(MG.ans!==null){
+    const ok=MG.ans===q.a;
+    h+=`<div class="fb ${ok?'co2':'wr2'}"><span class="fe">${ok?'✅':'❌'}</span><div class="fi"><div class="ft2">${ok?'答啱咗！':'再諗諗'}</div>${!ok?`<div class="fd">正確答案係 ${q.a} ${u}</div>`:''}<div class="fs">解題：${q.so}</div></div></div><button class="nb" onclick="mgNext()">${isLast?'查看結果':'下一題 →'}</button>`;
+  }else{
+    h+=`<div class="ir"><input class="ai" type="number" id="mg-inp" placeholder="輸入答案..." inputmode="numeric"><button class="sbt" onclick="mgSubmit()">確認</button></div>`;
+  }
+  $('mg-b').innerHTML=h;
+}
+function mgSubmit(){const v=parseInt($('mg-inp')?.value);if(isNaN(v))return;MG.ans=v;MG.tt++;const q=MG.set.q[MG.idx];if(v===q.a){MG.sc++;correct()}else wrong();renderMGC()}
+function mgNext(){if(MG.idx>=MG.set.q.length-1){G.daily.ma=true;if(MG.sc===MG.set.q.length){addXP(30);G.coins+=20}const acc=MG.tt?Math.round(MG.sc/MG.tt*100):0;showResult(acc>=80?'🏆':acc>=50?'👍':'💪',acc>=80?'數學達人！':'繼續努力！','答啱 '+MG.sc+'/'+MG.tt,MG.sc*10,MG.sc*5)}else{MG.idx++;MG.ans=null;MG.simp=false;MG.hint=false;MG.magic=false;renderMGC()}}
+
+// ===== RESULT =====
+function showResult(e,t,s,xp,co){$('rs-e').textContent=e;$('rs-t').textContent=t;$('rs-s').textContent=s;$('rs-ss').innerHTML=`<div style="text-align:center"><div class="rsv">+${xp}</div><div class="rsl">XP</div></div><div style="text-align:center"><div class="rsv">+${co}</div><div class="rsl">🪙</div></div>`;show('pg-rs')}
+
+// ===== PET =====
+function renderPet(){
+  const p=PETS.find(x=>x.id===G.pet),cl=LVS.find(l=>l.l===G.lv);
+  let h=`<div class="pd"><span class="pbg">${p.e}</span><div class="pnb">${p.n}</div><div class="pmg">${G.pH>70?'😊 好開心！':G.pH>40?'🙂 還可以':'😢 唔開心...'}</div><div class="hpbg"><div class="hpf" style="width:${G.pH}%"></div></div><div class="hpl">快樂值 ${G.pH}%</div></div>`;
+  h+=`<div class="lvc"><div class="lvb">Lv.${G.lv}</div><div class="lvi"><div class="lvt">${cl.t}</div><div class="lvx">${G.xp} XP</div></div></div>`;
+  h+=`<div class="ssc"><div class="ssi"><span class="sse">🪙</span><div class="ssv2">${G.coins}</div><div class="ssl">金幣</div></div><div class="ssi"><span class="sse">🔥</span><div class="ssv2">${G.streak}</div><div class="ssl">連擊</div></div><div class="ssi"><span class="sse">📊</span><div class="ssv2">${G.tXP}</div><div class="ssl">今日XP</div></div></div>`;
+  h+=`<div class="st">🐾 寵物收藏</div><div class="pg">${PETS.map(pt=>`<div class="pi2${G.pet===pt.id?' ac':''}${G.lv<pt.ul?' lk':''}" onclick="setPet('${pt.id}')"><span class="pie">${G.lv>=pt.ul?pt.e:'❓'}</span><div class="pin">${G.lv>=pt.ul?pt.n:'Lv.'+pt.ul}</div></div>`).join('')}</div>`;
+  h+=`<div class="st">📈 等級進度</div>${LVS.map(l=>`<div class="lr${l.l===G.lv?' cur':''}"><span class="lrl">Lv.${l.l}</span><span class="lrt${G.lv>=l.l?' rd':''}">${l.t}</span><span class="lrx">${l.x} XP</span>${l.l===G.lv?'<span class="lrm">◀</span>':''}</div>`).join('')}`;
+  $('pg-pet').innerHTML=h;
+}
+function setPet(id){if(G.lv>=PETS.find(p=>p.id===id).ul){G.pet=id;renderPet()}}
+
+// ===== PARENT =====
+function renderPar(){
+  const acc=G.tT?Math.round(G.tC/G.tT*100):0,dn=[G.daily.ch,G.daily.ca,G.daily.ma].filter(Boolean).length;
+  let h=`<div style="margin-bottom:12px"><div class="pht">👨‍👩‍👧 家長中心</div><div class="phs">了解孩子的學習進度</div></div>`;
+  h+=`<div class="smc"><div class="cmt">📊 今日學習概況</div><div class="sms"><div><div class="smv">${G.tXP}</div><div class="sml">獲得 XP</div></div><div><div class="smv" style="color:${acc>=70?'var(--ok)':acc>=40?'var(--warn)':'var(--err)'}">${acc}%</div><div class="sml">正確率</div></div><div><div class="smv">${dn}/3</div><div class="sml">任務完成</div></div></div><div class="pbg2"><div class="pf2" style="width:${dn/3*100}%"></div></div></div>`;
+  h+=`<div class="smc"><div class="cmt">📚 各科情況</div><div class="sur"><span class="sui">🔤</span><span class="sun">繁體字認讀</span><span class="sud${G.daily.ch?' dn':''}">${G.daily.ch?'✓ 今日已完成':'未完成'}</span></div><div class="sur"><span class="sui">🗣️</span><span class="sun">粵語拼音</span><span class="sud${G.daily.ca?' dn':''}">${G.daily.ca?'✓ 今日已完成':'未完成'}</span></div><div class="sur"><span class="sui">🔢</span><span class="sun">數學對標</span><span class="sud${G.daily.ma?' dn':''}">${G.daily.ma?'✓ 今日已完成':'未完成'}</span></div></div>`;
+  h+=`<div class="st">💡 輔導與誇獎指南</div>`;
+  PG.forEach(g=>{h+=`<div class="guc"><div class="guh" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'"><span class="gui">${g.i}</span><span class="gut">${g.t}</span><span class="gua">▸</span></div><div class="gub" style="display:none">${g.tips.map(t=>`<div class="tpi"><div class="tps">${t.s}</div><div class="tpd"><div class="tpdl">✅ 這樣說</div><div class="tpdt">${t.d}</div></div><div class="tpn"><div class="tpnl">❌ 別這樣說</div><div class="tpnt">${t.n}</div></div></div>`).join('')}</div></div>`});
+  $('pg-par').innerHTML=h;
+}
+
+updHome();
+</script>
+</body>
+</html>
