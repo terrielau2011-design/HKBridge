@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>HK橋樑 v3 - 新來港家庭融入導航系統</title>
+<title>HK橋樑 v3.1 - 新來港家庭融入導航系統</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--pri:#FF6B35;--sec:#4ECDC4;--acc:#FFE66D;--pur:#A855F7;--pink:#F472B6;--blue:#3B82F6;--green:#10B981;--rose:#F43F5E;--amber:#F59E0B;--bg:#FFF8F0;--card:#fff;--txt:#1F2937;--txtL:#6B7280;--ok:#10B981;--err:#EF4444;--warn:#F59E0B;--r:14px;--sh:0 2px 8px rgba(0,0,0,.08)}
@@ -23,45 +23,57 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 .lh .lt{font-size:18px;font-weight:700}.lh .ls{font-size:18px;font-weight:700;color:var(--pri)}
 .lb{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px}
 
-/* 首頁 - 龍寵物 */
-.hr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.ps{display:flex;align-items:center;gap:10px}.pe{font-size:52px}.pn{font-size:18px;font-weight:700}.pm{font-size:13px;color:var(--txtL)}
-.sr{display:flex;gap:14px}.si{text-align:center}.sv{font-size:17px;font-weight:700}.sl{font-size:11px;color:var(--txtL)}
+/* ===== 兒童首頁 - RPG 極簡風 ===== */
+.home-pet-card{background:linear-gradient(135deg,#FFF5F0,#FFEDD5);border-radius:22px;padding:24px;text-align:center;margin-bottom:18px;box-shadow:0 4px 16px rgba(255,107,53,.12);position:relative;overflow:hidden}
+.home-pet-card::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:radial-gradient(circle,rgba(255,107,53,.1),transparent);border-radius:50%}
+.home-pet-emoji{font-size:80px;margin-bottom:8px;display:block}
+.home-pet-name{font-size:22px;font-weight:800;color:var(--pri)}
+.home-pet-mood{font-size:14px;color:var(--txtL);margin-top:2px}
+.home-pet-stats{display:flex;justify-content:center;gap:20px;margin-top:14px}
+.home-pet-stat{text-align:center}
+.home-pet-stat .hps-val{font-size:18px;font-weight:800;color:var(--pri)}
+.home-pet-stat .hps-label{font-size:11px;color:var(--txtL)}
 
-/* XP bar + 升級提示 */
-.xbw{margin-bottom:10px}.xbb{height:12px;background:#E5E7EB;border-radius:99px;overflow:hidden}.xbf{height:100%;background:linear-gradient(90deg,var(--pri),#FF8F5E);border-radius:99px;transition:width .5s}
-.xxt{font-size:11px;color:var(--txtL);text-align:right;margin-top:3px}
-.lvl-hint{font-size:12px;color:var(--pri);font-weight:600;margin-top:2px;margin-bottom:6px}
+/* Level Progress Bar - 大而醒目 */
+.lvl-progress{background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:18px;box-shadow:var(--sh)}
+.lvl-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.lvl-badge{background:var(--pri);color:#fff;font-weight:800;font-size:14px;padding:4px 14px;border-radius:20px}
+.lvl-title{font-size:15px;font-weight:700;color:var(--txt)}
+.lvl-hint-home{font-size:13px;color:var(--pri);font-weight:700}
+.lvl-bar{height:16px;background:#E5E7EB;border-radius:99px;overflow:hidden;margin-bottom:4px}
+.lvl-bar-fill{height:100%;background:linear-gradient(90deg,var(--pri),#FF8F5E,var(--acc));border-radius:99px;transition:width .6s}
+.lvl-bar-text{font-size:11px;color:var(--txtL);text-align:right}
+
+/* 今日任務卡 - 最多3個 */
+.quest-section{margin-bottom:18px}
+.quest-title{font-size:17px;font-weight:800;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.quest-card{display:flex;align-items:center;background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:8px;box-shadow:var(--sh);border-left:4px solid var(--pri);min-height:64px;transition:transform .15s}.quest-card:active{transform:scale(.98)}
+.quest-card.qc-life{border-left-color:var(--green)}.quest-card.qc-lang{border-left-color:var(--sec)}.quest-card.qc-acad{border-left-color:var(--pur)}
+.quest-card.qc-fun{border-left-color:var(--amber)}.quest-card.qc-family{border-left-color:var(--rose)}
+.quest-card.qc-done{border-left-color:var(--ok);background:#F0FDF4}
+.quest-icon{font-size:28px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;margin-right:12px;flex-shrink:0}
+.quest-body{flex:1}.quest-name{font-size:15px;font-weight:700}.quest-sub{font-size:12px;color:var(--txtL);margin-top:2px}
+.quest-arrow{font-size:20px;color:var(--txtL)}
+.quest-done-icon{font-size:22px;color:var(--ok)}
+
+/* 更多入口 */
+.more-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:var(--sh);border:2px dashed #E5E7EB;font-size:15px;color:var(--txtL);font-weight:600;min-height:56px;transition:transform .15s}.more-btn:active{transform:scale(.97)}
 
 /* 體力條 */
 .stw{margin-bottom:14px}.stl{font-size:12px;color:var(--txtL);margin-bottom:3px;display:flex;justify-content:space-between}
-.stb{height:14px;background:#E5E7EB;border-radius:99px;overflow:hidden}.stf{height:100%;border-radius:99px;transition:width .5s}
+.stb{height:12px;background:#E5E7EB;border-radius:99px;overflow:hidden}.stf{height:100%;border-radius:99px;transition:width .5s}
 .stf.high{background:var(--ok)}.stf.mid{background:var(--warn)}.stf.low{background:var(--err)}
 
 /* Section title */
 .st{font-size:17px;font-weight:700;margin-bottom:10px;margin-top:14px}
 
-/* 每日任務 */
-.dr{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.dc{flex:1;min-width:60px;background:var(--card);border-radius:var(--r);padding:10px 6px;text-align:center;border:2px solid #E5E7EB;font-size:11px;transition:.2s}.dc.dn{border-color:var(--ok);background:#F0FDF4}.dc .ci{font-size:20px;display:block;margin-bottom:2px}
-
-/* 社交任務 */
-.social-card{background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-radius:var(--r);padding:16px;margin-bottom:14px;border:2px solid var(--warn)}
-.social-card .sc-title{font-size:15px;font-weight:700;color:#92400E;margin-bottom:6px}
-.social-card .sc-desc{font-size:14px;color:#78350F;margin-bottom:10px}
-.social-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:var(--r);font-size:14px;font-weight:700;transition:transform .15s}.social-btn:active{transform:scale(.97)}
-.social-btn.pending{background:var(--pri);color:#fff}.social-btn.done{background:var(--ok);color:#fff}
-.social-btn.parent-confirm{background:var(--blue);color:#fff;margin-left:8px}
-
-/* ===== 五大支柱卡片 ===== */
+/* ===== 五大支柱卡片（支柱詳情頁用）===== */
 .pillars{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
 .pillar{display:flex;align-items:center;background:var(--card);border-radius:var(--r);padding:14px;box-shadow:var(--sh);transition:transform .15s;min-height:72px;border-left:5px solid var(--pri)}.pillar:active{transform:scale(.98)}
 .pillar .pi-icon{font-size:32px;width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:12px;margin-right:12px;flex-shrink:0}
 .pillar .pi-body{flex:1}.pillar .pi-title{font-size:16px;font-weight:700}.pillar .pi-sub{font-size:12px;color:var(--txtL);margin-top:2px}.pillar .pi-arrow{font-size:22px;color:var(--txtL)}
-.pillar.locked{opacity:.5;filter:grayscale(.6)}.pillar.locked .pi-arrow::after{content:'🔒';font-size:16px;margin-left:4px}
+.pillar.locked{opacity:.5;filter:grayscale(.6)}
 .pillar .pi-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;color:#fff;margin-left:8px}
-
-/* 五大支柱顏色 */
 .pillar-life{border-left-color:var(--green)}.pillar-life .pi-icon{background:#F0FDF4}
 .pillar-lang{border-left-color:var(--sec)}.pillar-lang .pi-icon{background:#F0FDFA}
 .pillar-acad{border-left-color:var(--pur)}.pillar-acad .pi-icon{background:#FAF5FF}
@@ -125,7 +137,7 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 .pg{display:flex;flex-wrap:wrap;gap:10px}.pi2{width:calc(33.33% - 7px);background:var(--card);border-radius:var(--r);padding:14px;text-align:center;border:2px solid #E5E7EB;transition:.2s;min-height:80px}.pi2.ac{border-color:var(--pri);background:#FFF5F0}.pi2.lk{opacity:.35}.pie{font-size:36px}.pin{font-size:12px;color:var(--txtL);margin-top:4px}
 .lr{display:flex;align-items:center;background:var(--card);border-radius:10px;padding:10px 14px;margin-bottom:5px}.lr.cur{background:#FFF5F0;border:1px solid var(--pri)}.lr .lrl{font-weight:700;width:50px;font-size:15px}.lr .lrt{flex:1;font-size:14px;color:var(--txtL)}.lr .lrt.rd{color:var(--txt);font-weight:600}.lr .lrx{font-size:12px;color:var(--txtL);width:60px;text-align:right}.lr .lrm{color:var(--pri);margin-left:5px;font-size:13px}
 
-/* 家長 */
+/* ===== 家長中心（擴充）===== */
 .pp{background:#F8FAFC}.pht{font-size:24px;font-weight:700}.phs{font-size:15px;color:var(--txtL);margin-top:5px}
 .smc{background:var(--card);border-radius:18px;padding:20px;margin-bottom:14px;box-shadow:var(--sh)}.cmt{font-size:17px;font-weight:700;margin-bottom:14px}
 .sms{display:flex;justify-content:space-around;margin-bottom:14px}.smv{font-size:24px;font-weight:700;color:var(--pri);text-align:center}.sml{font-size:11px;color:var(--txtL);text-align:center;margin-top:3px}
@@ -135,6 +147,20 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 .gub{padding:0 16px 16px}.tpi{padding:12px 0;border-top:1px solid #F3F4F6}.tps{font-size:14px;font-weight:600;margin-bottom:10px}
 .tpd{background:#F0FDF4;border-radius:10px;padding:10px 12px;margin-bottom:8px}.tpdl{font-size:11px;font-weight:700;color:var(--ok)}.tpdt{font-size:13px;color:#166534}
 .tpn{background:#FEF2F2;border-radius:10px;padding:10px 12px}.tpnl{font-size:11px;font-weight:700;color:var(--err)}.tpnt{font-size:13px;color:#991B1B}
+
+/* 家長 - 緊急資訊卡 */
+.emergency-card{background:linear-gradient(135deg,#FEF2F2,#FECACA);border-radius:18px;padding:20px;margin-bottom:14px;border:2px solid var(--err)}
+.emergency-card .ec-title{font-size:17px;font-weight:700;color:var(--err);margin-bottom:10px}
+.emergency-card .ec-row{display:flex;align-items:flex-start;padding:6px 0;gap:8px}
+.emergency-card .ec-label{font-size:13px;font-weight:700;color:#991B1B;min-width:80px;flex-shrink:0}
+.emergency-card .ec-val{font-size:13px;color:#7F1D1D}
+
+/* 家長 - 跨境術語表 */
+.term-table{width:100%;border-collapse:separate;border-spacing:0;margin-top:8px}
+.term-table th{background:#F3F4F6;font-size:12px;font-weight:700;padding:8px 10px;text-align:left}
+.term-table th:first-child{border-radius:8px 0 0 0}.term-table th:last-child{border-radius:0 8px 0 0}
+.term-table td{font-size:13px;padding:8px 10px;border-bottom:1px solid #F3F4F6}
+.term-table tr:last-child td{border-bottom:none}
 
 /* AI 客服 */
 .chat-box{background:var(--card);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:var(--sh);max-height:360px;display:flex;flex-direction:column}
@@ -170,7 +196,7 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 .ph-btn{width:56px;height:56px;border-radius:var(--r);background:var(--card);border:2px solid #E5E7EB;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;transition:all .2s}
 .ph-btn:active{transform:scale(.93)}.ph-btn.sel{border-color:var(--blue);background:#EFF6FF}.ph-btn.correct{border-color:var(--ok);background:#F0FDF4}.ph-btn.wrong{border-color:var(--err);background:#FEF2F2}
 
-/* 娛樂時光 - 破冰任務卡 */
+/* 破冰/家園任務卡 */
 .ice-card{background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-radius:var(--r);padding:16px;margin-bottom:10px;border:2px solid var(--amber)}
 .ice-card .ice-q{font-size:15px;font-weight:700;color:#92400E;margin-bottom:6px}
 .ice-card .ice-d{font-size:13px;color:#78350F;margin-bottom:8px}
@@ -184,43 +210,46 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 .unlock-content .uc-title{font-size:20px;font-weight:700;margin-bottom:8px}
 .unlock-content .uc-desc{font-size:14px;color:var(--txtL);margin-bottom:20px}
 .unlock-content .uc-btn{background:var(--pri);border-radius:var(--r);padding:14px 28px;font-size:16px;font-weight:700;color:#fff}
+
+/* 社交任務（家長端用） */
+.social-card-mini{background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-radius:var(--r);padding:12px;margin-bottom:10px;border:2px solid var(--warn);font-size:13px}
+.social-card-mini .scm-title{font-weight:700;color:#92400E}
 </style>
 </head>
 <body>
 <div id="app">
-<!-- ===== HOME ===== -->
+<!-- ===== 兒童首頁 - RPG 極簡風 ===== -->
 <div class="page on" id="pg-home">
-<div class="hr"><div class="ps"><span class="pe" id="h-pe">🥚</span><div><div class="pn" id="h-pn">小火龍</div><div class="pm" id="h-pm">😊 好開心！</div></div></div><div class="sr"><div class="si"><div class="sv" id="h-lv">Lv.1</div><div class="sl">等級</div></div><div class="si"><div class="sv" id="h-co">50</div><div class="sl">🪙</div></div><div class="si"><div class="sv" id="h-sk">0</div><div class="sl">🔥</div></div></div></div>
-<div class="xbw"><div class="xbb"><div class="xbf" id="h-xpb" style="width:0%"></div></div><div class="xxt" id="h-xpt">0 / 50 XP</div><div class="lvl-hint" id="h-lvl-hint">还差 50 分升級</div></div>
-<div class="stw"><div class="stl"><span>⚡ 體力</span><span id="h-stv">100/100</span></div><div class="stb"><div class="stf high" id="h-stf" style="width:100%"></div></div></div>
-<div class="st">🌟 今日社交任務</div>
-<div class="social-card" id="social-card"></div>
-<div class="st">📋 今日任務</div>
-<div class="dr"><div class="dc" id="d-life"><span class="ci">🗺️</span>地圖</div><div class="dc" id="d-lang"><span class="ci">🗣️</span>語言</div><div class="dc" id="d-acad"><span class="ci">📝</span>學業</div><div class="dc" id="d-fun"><span class="ci">🎮</span>娛樂</div><div class="dc" id="d-family"><span class="ci">🏠</span>家園</div></div>
-<div class="st">🗺️ 開始任務</div>
-<div class="pillars" id="pillar-list"></div>
-<div class="st">📊 今日得分</div>
-<div class="score-panel" id="score-panel"></div>
+  <!-- 龍寵物大卡 -->
+  <div class="home-pet-card" id="home-pet-card"></div>
+  <!-- 等級進度 -->
+  <div class="lvl-progress" id="home-lvl-progress"></div>
+  <!-- 體力 -->
+  <div class="stw"><div class="stl"><span>⚡ 體力</span><span id="h-stv">100/100</span></div><div class="stb"><div class="stf high" id="h-stf" style="width:100%"></div></div></div>
+  <!-- 今日任務（最多3個） -->
+  <div class="quest-section" id="home-quests"></div>
+  <!-- 更多探索 -->
+  <div class="more-btn" onclick="go('pd');renderPillarHub()">🗺️ 探索更多領域 ›</div>
 </div>
 
-<!-- ===== PILLAR DETAIL ===== -->
-<div class="lp" id="pg-pd"><div class="lh"><button class="bb" onclick="home()">← 返回</button><div class="lt" id="pd-t"></div><div></div></div><div class="lb" id="pd-b"></div></div>
+<!-- ===== 支柱總覽（從首頁「更多」進入）===== -->
+<div class="lp" id="pg-pd"><div class="lh"><button class="bb" onclick="home()">← 返回</button><div class="lt" id="pd-t">🗺️ 任務領域</div><div></div></div><div class="lb" id="pd-b"></div></div>
 <!-- ===== CHAR SELECT ===== -->
-<div class="lp" id="pg-cs"><div class="lh"><button class="bb" onclick="go('pd')">← 返回</button><div class="lt">🔤 繁體字認讀</div><div></div></div><div class="lb" id="cs-list"></div></div>
+<div class="lp" id="pg-cs"><div class="lh"><button class="bb" onclick="go('pd');renderPillarHub()">← 返回</button><div class="lt">🔤 繁體字認讀</div><div></div></div><div class="lb" id="cs-list"></div></div>
 <!-- ===== CHAR GAME ===== -->
 <div class="lp" id="pg-cg"><div class="lh"><button class="bb" onclick="go('cs')">✕</button><div class="lt" id="cg-t"></div><div class="ls" id="cg-s">0/5</div></div><div class="mh">先撳左邊嘅繁體字，再撳右邊簡體字配對</div><div class="mbd"><div class="mcl"><div class="mcl-l">繁體</div><div id="cg-tc"></div></div><div class="mcl"><div class="mcl-l">简体</div><div id="cg-sc"></div></div></div><div class="mhb" id="cg-h" style="display:none"></div></div>
 <!-- ===== CANTO SELECT ===== -->
-<div class="lp" id="pg-ks"><div class="lh"><button class="bb" onclick="go('pd')">← 返回</button><div class="lt">🗣️ 粵語拼音</div><div></div></div><div class="lb" id="ks-list"></div></div>
+<div class="lp" id="pg-ks"><div class="lh"><button class="bb" onclick="go('pd');renderPillarHub()">← 返回</button><div class="lt">🗣️ 粵語拼音</div><div></div></div><div class="lb" id="ks-list"></div></div>
 <!-- ===== CANTO LEARN ===== -->
 <div class="lp" id="pg-kl"><div class="lh"><button class="bb" onclick="go('ks')">✕</button><div class="lt" id="kl-t"></div><div class="ls" id="kl-p">1/6</div></div><div class="lb" id="kl-b"></div></div>
 <!-- ===== CANTO QUIZ ===== -->
 <div class="lp" id="pg-kq"><div class="lh"><button class="bb" onclick="go('ks')">✕</button><div class="lt">聽音辨字</div><div class="ls" id="kq-s">0/0</div></div><div class="lb" id="kq-b"></div></div>
 <!-- ===== MATH SELECT ===== -->
-<div class="lp" id="pg-ms"><div class="lh"><button class="bb" onclick="go('pd')">← 返回</button><div class="lt">🔢 數學對標</div><div></div></div><div class="lb" id="ms-list"></div></div>
+<div class="lp" id="pg-ms"><div class="lh"><button class="bb" onclick="go('pd');renderPillarHub()">← 返回</button><div class="lt">🔢 數學對標</div><div></div></div><div class="lb" id="ms-list"></div></div>
 <!-- ===== MATH GAME ===== -->
 <div class="lp" id="pg-mg"><div class="lh"><button class="bb" onclick="go('ms')">✕</button><div class="lt" id="mg-t"></div><div class="ls" id="mg-s">0/0</div></div><div class="pbr"><div class="pbf" id="mg-pb" style="width:0%"></div></div><div class="lb" id="mg-b"></div></div>
 <!-- ===== PHONICS SELECT ===== -->
-<div class="lp" id="pg-ps"><div class="lh"><button class="bb" onclick="go('pd')">← 返回</button><div class="lt">🅰️ Phonics</div><div></div></div><div class="lb" id="ps-list"></div></div>
+<div class="lp" id="pg-ps"><div class="lh"><button class="bb" onclick="go('pd');renderPillarHub()">← 返回</button><div class="lt">🅰️ Phonics</div><div></div></div><div class="lb" id="ps-list"></div></div>
 <!-- ===== PHONICS GAME ===== -->
 <div class="lp" id="pg-pg"><div class="lh"><button class="bb" onclick="go('ps')">✕</button><div class="lt" id="pg-t"></div><div class="ls" id="pg-s">0/0</div></div><div class="lb" id="pg-b"></div></div>
 <!-- ===== FUN/ENTERTAINMENT ===== -->
@@ -244,19 +273,15 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 <script>
 // ===== 遊戲狀態 =====
 const G={xp:0,coins:50,lv:1,streak:0,tXP:0,tC:0,tT:0,pet:'babyDragon',pH:80,stamina:100,maxStamina:100,
-  // 分類得分
   score:{life:0,lang:0,acad:0,fun:0,family:0},
-  // 每日任務完成狀態（5大支柱）
   daily:{life:false,lang:false,acad:false,fun:false,family:false},
-  // 支柱解鎖狀態
   unlocked:{life:true,lang:true,acad:true,fun:false,family:false},
   socialTask:null,socialDone:false,parentConfirm:false};
 
-// 體力回復：每30秒回復1點
 setInterval(()=>{if(G.stamina<G.maxStamina){G.stamina=Math.min(G.maxStamina,G.stamina+1);if(document.getElementById('h-stv'))updHome()}},30000);
 function useStamina(n){if(G.stamina<n){document.getElementById('stamina-modal').classList.add('on');return false}G.stamina-=n;return true}
 
-// ===== 龍主題寵物（10級成長系統）=====
+// ===== 龍主題寵物 =====
 const PETS=[
   {id:'babyDragon',n:'小火龍',e:'🥚',ul:0,desc:'剛破殼嘅小龍寶寶',skins:['蛋殼','火焰紋','星光']},
   {id:'greenDragon',n:'翠龍仔',e:'🐲',ul:2,desc:'學會爬行嘅小龍',skins:['嫩綠','翠藍','金邊']},
@@ -267,24 +292,33 @@ const PETS=[
 
 // ===== 五大支柱 =====
 const PILLARS=[
-  {id:'life',name:'本土地圖',sub:'Life & Culture',icon:'🗺️',color:'var(--green)',cls:'pillar-life',
-    desc:'香港知識、本地文化趣聞',unlockAt:0,
-    modules:['char']},
-  {id:'lang',name:'語言魔法',sub:'Language',icon:'🗣️',color:'var(--sec)',cls:'pillar-lang',
-    desc:'粵語拼音、聽力、繁體字轉換',unlockAt:0,
-    modules:['canto','phonics']},
-  {id:'acad',name:'學業試煉',sub:'Academics',icon:'📝',color:'var(--pur)',cls:'pillar-acad',
-    desc:'中文、數學、英文功課變任務',unlockAt:0,
-    modules:['math']},
-  {id:'fun',name:'娛樂時光',sub:'IP & Trends',icon:'🎮',color:'var(--amber)',cls:'pillar-fun',
-    desc:'流行文化、卡通IP、破冰話題',unlockAt:3,
-    modules:['fun']},
-  {id:'family',name:'家園羈絆',sub:'Family & Ethics',icon:'🏠',color:'var(--rose)',cls:'pillar-family',
-    desc:'家務勞動、家庭互動、禮儀修養',unlockAt:5,
-    modules:['family']}
+  {id:'life',name:'本土地圖',sub:'Life & Culture',icon:'🗺️',color:'var(--green)',cls:'pillar-life',desc:'香港知識、本地文化趣聞',unlockAt:0},
+  {id:'lang',name:'語言魔法',sub:'Language',icon:'🗣️',color:'var(--sec)',cls:'pillar-lang',desc:'粵語拼音、聽力、繁體字轉換',unlockAt:0},
+  {id:'acad',name:'學業試煉',sub:'Academics',icon:'📝',color:'var(--pur)',cls:'pillar-acad',desc:'中文、數學、英文功課變任務',unlockAt:0},
+  {id:'fun',name:'娛樂時光',sub:'IP & Trends',icon:'🎮',color:'var(--amber)',cls:'pillar-fun',desc:'流行文化、卡通IP、破冰話題',unlockAt:3},
+  {id:'family',name:'家園羈絆',sub:'Family & Ethics',icon:'🏠',color:'var(--rose)',cls:'pillar-family',desc:'家務勞動、家庭互動、禮儀修養',unlockAt:5}
 ];
 
-// ===== 娛樂時光 - 破冰任務數據 =====
+// ===== 今日任務推薦（首頁最多3個）=====
+function getTodayQuests(){
+  const quests=[
+    {id:'life',pillar:'life',icon:'🗺️',name:'繁體字認讀',sub:'簡繁連連看',cls:'qc-life',action:"openPillar('life')"},
+    {id:'lang-canto',pillar:'lang',icon:'🗣️',name:'粵語拼音',sub:'校園情境聽說',cls:'qc-lang',action:"openPillar('lang')"},
+    {id:'lang-ph',pillar:'lang',icon:'🅰️',name:'Phonics',sub:'英文聽音辨字',cls:'qc-lang',action:"openPillar('lang')"},
+    {id:'acad',pillar:'acad',icon:'🔢',name:'數學對標',sub:'應用題闖關 + 魔術棒',cls:'qc-acad',action:"openPillar('acad')"},
+  ];
+  // 加入已解鎖的娛樂和家園
+  if(G.unlocked.fun) quests.push({id:'fun',pillar:'fun',icon:'🎮',name:'娛樂時光',sub:'破冰任務',cls:'qc-fun',action:"go('fun');renderFun()"});
+  if(G.unlocked.family) quests.push({id:'family',pillar:'family',icon:'🏠',name:'家園羈絆',sub:'家務 + 禮儀',cls:'qc-family',action:"go('family');renderFamily()"});
+  // 排序：未完成嘅排前面，最多取3個
+  quests.sort((a,b)=>{
+    const da=G.daily[a.pillar]?1:0,db=G.daily[b.pillar]?1:0;
+    return da-db;
+  });
+  return quests.slice(0,3);
+}
+
+// ===== 娛樂時光 - 破冰任務 =====
 const ICE_TASKS=[
   {q:'問同學最鍾意咩卡通',d:'問吓身邊嘅同學最鍾意睇咩卡通片，聽日可以分享你嘅睇法！',r:20,tag:'🎨 破冰'},
   {q:'搵一個同學傾下近期最Hit嘅動漫',d:'了解一下香港同學之間最流行嘅動漫，下次就可以一齊傾！',r:25,tag:'🎬 破冰'},
@@ -296,7 +330,7 @@ const ICE_TASKS=[
   {q:'搵同學教你一個香港流行用語',d:'香港有好多特別嘅潮語，問同學教你一個！',r:20,tag:'💬 破冰'}
 ];
 
-// ===== 家園羈絆 - 任務數據 =====
+// ===== 家園羈絆 =====
 const FAMILY_TASKS=[
   {q:'幫手執書包',d:'今晚自己執好聽日嘅書包，唔使媽媽提你！',r:15,tag:'📖 自理'},
   {q:'幫屋企人斟杯水',d:'主動斟杯水畀爸爸或者媽媽，佢哋會好感動！',r:10,tag:'💧 孝順'},
@@ -319,18 +353,11 @@ const SOCIAL_TASKS=[
 ];
 function initSocialTask(){const d=new Date().toDateString();if(!G.socialTask||G.socialTask.date!==d){G.socialTask={...SOCIAL_TASKS[Math.floor(Math.random()*SOCIAL_TASKS.length)],date:d};G.socialDone=false;G.parentConfirm=false}}
 
-// ===== 繁體字數據 =====
+// ===== 數據 =====
 const CS=[{id:'classroom',t:'課堂用語',i:'🏫',p:[['老師','老师'],['同學','同学'],['功課','功课'],['考試','考试'],['書包','书包'],['筆盒','笔盒'],['操場','操场'],['飯堂','饭堂']]},{id:'family',t:'家人稱呼',i:'👨‍👩‍👧',p:[['媽媽','妈妈'],['爸爸','爸爸'],['爺爺','爷爷'],['嫲嫲','奶奶'],['外公','外公'],['婆婆','姥姥'],['哥哥','哥哥'],['家姐','姐姐']]},{id:'daily',t:'日常用語',i:'☀️',p:[['食飯','吃饭'],['飲水','喝水'],['沖涼','洗澡'],['瞓覺','睡觉'],['著衫','穿衣服'],['行路','走路'],['搭車','坐车'],['買嘢','买东西']]},{id:'school',t:'學校事物',i:'📚',p:[['圖書館','图书馆'],['電腦室','电脑室'],['音樂堂','音乐课'],['體育堂','体育课'],['美勞堂','手工课'],['常識堂','常识课'],['小息','小休'],['放學','放学']]},{id:'emotion',t:'感覺心情',i:'😊',p:[['開心','开心'],['驚','害怕'],['肚餓','肚子饿'],['攰','累'],['唔開心','不开心'],['緊張','紧张'],['好悶','好无聊'],['開心到跳','开心得跳起来']]},{id:'weather',t:'天氣自然',i:'🌤️',p:[['打風','刮台风'],['落雨','下雨'],['好熱','好热'],['好凍','好冷'],['行雷','打雷'],['閃電','闪电'],['潮濕','潮湿'],['乾燥','干燥']]}];
-
-// ===== 粵語數據 =====
-const KD=[{id:'greetings',t:'打招呼',i:'👋',items:[['早晨','zou2 san4','早上好'],['你好','nei5 hou2','你好'],['再見','zoi3 gin3','再见'],['唔該','m4 goi1','谢谢/麻烦你'],['多謝','do1 ze6','谢谢（收到礼物）'],['對唔住','deoi3 m4 zyu6','对不起']]},{id:'classroom',t:'課堂指令',i:'✋',items:[['坐好','co5 hou2','坐好'],['安靜','on1 zing6','安静'],['舉手','geoi2 sau2','举手'],['收書','sau1 syu1','收书'],['打開書','daa2 hoi1 syu1','打开书'],['抄低','caau1 dai1','抄下来']]},{id:'playground',t:'小息用語',i:'🏃',items:[['一齊玩','jat1 cai4 waan2','一起玩'],['等等我','dang2 dang2 ngo5','等等我'],['好開心','hou2 hoi1 sam1','好开心'],['唔玩啦','m4 waan2 laa1','不玩了'],['借下','ze3 haa5','借一下'],['還畀我','waan4 bei2 ngo5','还给我']]},{id:'canteen',t:'飯堂小食',i:'🍱',items:[['食咩','sik6 me1','吃什么'],['好肚餓','hou2 tou5 ngo6','好饿'],['飲品','jam2 ban2','饮料'],['小食','siu2 sik6','零食'],['好味','hou2 mei6','好吃'],['飽啦','baau2 laa1','饱了']]},
-{id:'campus',t:'校園情境',i:'🏫',items:[['老師，我想去洗手間','lou5 si1, ngo5 soeng2 heoi3 sai2 sau2 gaan1','老师，我想去洗手间'],['我唔舒服','ngo5 m4 syu1 fuk6','我不舒服'],['可以借支筆畀我嗎？','ho2 ji5 ze3 zi1 bat1 bei2 ngo5 maa3','可以借支笔给我吗？'],['呢個點讀？','ni1 go3 dim2 duk6','这个怎么读？'],['我唔明','ngo5 m4 ming4','我不明白'],['幾時交功課？','gei2 si4 gaau1 gung1 fo3','什么时候交功课？']]}];
+const KD=[{id:'greetings',t:'打招呼',i:'👋',items:[['早晨','zou2 san4','早上好'],['你好','nei5 hou2','你好'],['再見','zoi3 gin3','再见'],['唔該','m4 goi1','谢谢/麻烦你'],['多謝','do1 ze6','谢谢（收到礼物）'],['對唔住','deoi3 m4 zyu6','对不起']]},{id:'classroom',t:'課堂指令',i:'✋',items:[['坐好','co5 hou2','坐好'],['安靜','on1 zing6','安静'],['舉手','geoi2 sau2','举手'],['收書','sau1 syu1','收书'],['打開書','daa2 hoi1 syu1','打开书'],['抄低','caau1 dai1','抄下来']]},{id:'playground',t:'小息用語',i:'🏃',items:[['一齊玩','jat1 cai4 waan2','一起玩'],['等等我','dang2 dang2 ngo5','等等我'],['好開心','hou2 hoi1 sam1','好开心'],['唔玩啦','m4 waan2 laa1','不玩了'],['借下','ze3 haa5','借一下'],['還畀我','waan4 bei2 ngo5','还给我']]},{id:'canteen',t:'飯堂小食',i:'🍱',items:[['食咩','sik6 me1','吃什么'],['好肚餓','hou2 tou5 ngo6','好饿'],['飲品','jam2 ban2','饮料'],['小食','siu2 sik6','零食'],['好味','hou2 mei6','好吃'],['飽啦','baau2 laa1','饱了']]},{id:'campus',t:'校園情境',i:'🏫',items:[['老師，我想去洗手間','lou5 si1, ngo5 soeng2 heoi3 sai2 sau2 gaan1','老师，我想去洗手间'],['我唔舒服','ngo5 m4 syu1 fuk6','我不舒服'],['可以借支筆畀我嗎？','ho2 ji5 ze3 zi1 bat1 bei2 ngo5 maa3','可以借支笔给我吗？'],['呢個點讀？','ni1 go3 dim2 duk6','这个怎么读？'],['我唔明','ngo5 m4 ming4','我不明白'],['幾時交功課？','gei2 si4 gaau1 gung1 fo3','什么时候交功课？']]}];
 const LQ=[['早晨',['早晨','早陳','造塵','走晨'],0],['唔該',['唔該','吾該','唔改','唔蓋'],0],['舉手',['舉手','舉首','巨手','拒收'],0],['好開心',['好開心','好凍心','好開新','好改心'],0],['食飯',['食飯','十翻','失範','食反'],0],['多謝',['多謝','多寫','多瀉','刀謝'],0],['安靜',['安靜','安淨','安靖','按靜'],0],['再見',['再見','在見','再建','載見'],0]];
-
-// ===== 數學數據 =====
 const MD=[{id:'p1a',lv:'P1',t:'加法入門',i:'➕',q:[{tx:'小明有3個蘋果，媽媽再畀佢5個，小明「共」有幾多個蘋果？',tx2:'小明有3个苹果，妈妈再给他5个，小明"共"有多少个苹果？',th:[['共','共 = 总共 = 一共（全部加在一起）']],a:8,u:'個',u2:'个',so:'3+5=8'},{tx:'書架上有4本書，爸爸再放6本上去，書架上「一共」有幾多本書？',tx2:'书架上有4本书，爸爸再放6本上去，"一共"有多少本书？',th:[['一共','一共 = 合起来 = 加在一起']],a:10,u:'本',u2:'本',so:'4+6=10'},{tx:'小華有7粒糖，小美有5粒糖，佢哋「合共」有幾多粒糖？',tx2:'小华有7粒糖，小美有5粒糖，他们"合共"有多少粒糖？',th:[['合共','合共 = 合起来 = 两个人加在一起']],a:12,u:'粒',u2:'粒',so:'7+5=12'}]},{id:'p1s',lv:'P1',t:'減法入門',i:'➖',q:[{tx:'姐姐有10塊餅乾，食咗4塊，「餘下」幾多塊餅乾？',tx2:'姐姐有10块饼干，吃了4块，"余下"多少块饼干？',th:[['餘下','餘下 = 剩下 = 还有多少（用减法）']],a:6,u:'塊',u2:'块',so:'10-4=6'},{tx:'樹上有12隻雀仔，飛走咗5隻，「還有」幾多隻雀仔？',tx2:'树上有12只小鸟，飞走了5只，"还有"多少只小鸟？',th:[['還有','還有 = 还有 = 剩下多少']],a:7,u:'隻',u2:'只',so:'12-5=7'},{tx:'盒裏有15粒珠仔，攞走咗8粒，「剩下」幾多粒？',tx2:'盒里有15粒珠子，拿走了8粒，"剩下"多少粒？',th:[['剩下','剩下 = 余下 = 还有多少']],a:7,u:'粒',u2:'粒',so:'15-8=7'}]},{id:'p2c',lv:'P2',t:'比較與相差',i:'⚖️',q:[{tx:'小明有15張貼紙，小華有9張貼紙，佢哋「相差」幾多張？',tx2:'小明有15张贴纸，小华有9张贴纸，"相差"多少张？',th:[['相差','相差 = 差多少 = 多出的部分（用减法）']],a:6,u:'張',u2:'张',so:'15-9=6'},{tx:'紅繩長24cm，藍繩長16cm，紅繩比藍繩長幾多cm？',tx2:'红绳长24cm，蓝绳长16cm，红绳比蓝绳长多少cm？',th:[['比...長','比...長 = 比它多多少（用减法）']],a:8,u:'cm',u2:'cm',so:'24-16=8'}]},{id:'p2m',lv:'P2',t:'乘法初探',i:'✖️',q:[{tx:'每盒有6塊朱古力，4盒「共有」幾多塊朱古力？',tx2:'每盒有6块巧克力，4盒"共有"多少块巧克力？',th:[['每...共有','每...共有 = 每个一样多，几盒就乘几']],a:24,u:'塊',u2:'块',so:'6×4=24'}]},{id:'p3d',lv:'P3',t:'除法與分配',i:'➗',q:[{tx:'有24粒糖，「平均分」畀6個小朋友，每人分到幾多粒？',tx2:'有24粒糖，"平均分"给6个小朋友，每人分到多少粒？',th:[['平均分','平均分 = 每人一样多（用除法）']],a:4,u:'粒',u2:'粒',so:'24÷6=4'}]}];
-
-// ===== Phonics 數據 =====
 const PH_DATA=[
   {id:'sati',t:'s a t p i',letters:['s','a','t','p','i'],words:[['s','sun','☀️'],['a','apple','🍎'],['t','top','🔺'],['p','pen','🖊️'],['i','ink','🖋️']]},
   {id:'nmdgo',t:'n m d g o',letters:['n','m','d','g','o'],words:[['n','net','🥅'],['m','map','🗺️'],['d','dog','🐕'],['g','goat','🐐'],['o','ox','🐂']]},
@@ -338,8 +365,6 @@ const PH_DATA=[
   {id:'fbIjv',t:'f b l j v',letters:['f','b','l','j','v'],words:[['f','fish','🐟'],['b','bat','🦇'],['l','leg','🦵'],['j','jam','🍯'],['v','van','🚐']]},
   {id:'wxyzq',t:'w x y z q',letters:['w','x','y','z','q'],words:[['w','web','🕸️'],['x','fox','🦊'],['y','yak','🐃'],['z','zip','🤐'],['q','queen','👑']]}
 ];
-
-// ===== AI FAQ 知識庫 =====
 const FAQ_DB=[
   {k:['急症室','急诊室','医院','看病','不舒服','生病'],q:'怎么预约急症室？',a:'香港急症室24小时开放，无需预约。直接去最近医院的急症室即可，按病情严重程度分流，非紧急可能需要等较长时间。普通科门诊可致电预约：上午8:30开始接受翌日预约。'},
   {k:['欺凌','欺负','被人打','同学打我','霸凌'],q:'孩子被欺凌怎么办？',a:'1️⃣ 首先安抚孩子情绪，告诉他不是他的错；2️⃣ 记录事件详情（时间、地点、涉及人员）；3️⃣ 联系班主任或学校社工；4️⃣ 如涉及暴力，可报警处理；5️⃣ 持续关注孩子情绪变化，必要时寻求心理辅导。'},
@@ -350,12 +375,26 @@ const FAQ_DB=[
   {k:['签证','续签','身份证','居留'],q:'如何续签身份证？',a:'新来港人士需在抵港30天内登记身份证。带同通行证、签注和旧身份证（如有）前往人事登记处办理。可网上预约减少等候时间。'},
   {k:['学校','入学','插班','转校'],q:'如何办理插班入学？',a:'1️⃣ 联系居住区域的区域教育服务处；2️⃣ 准备文件：身份证明、成绩单、住址证明；3️⃣ 学校会安排入学考试或面试；4️⃣ 北区、屯门等较多新来港学童的学校会有较好支援。'}
 ];
-
-// ===== 10級系統 =====
 const LVS=[{l:1,x:0,t:'新來小冒險家'},{l:2,x:50,t:'好奇探索者'},{l:3,x:120,t:'繁體小學徒'},{l:4,x:200,t:'語言小達人'},{l:5,x:300,t:'粵語小能手'},{l:6,x:420,t:'數學小精靈'},{l:7,x:560,t:'適應小先鋒'},{l:8,x:720,t:'香港通'},{l:9,x:900,t:'超級橋樑'},{l:10,x:1100,t:'終極融合者'}];
-
-// ===== 家長輔導指南 =====
 const PG=[{t:'夸奖的艺术',i:'🌟',tips:[{s:'孩子做对了一道题',d:'「你真棒！这么难的题都做对了！」',n:'「这才一道，还有好多呢」'},{s:'孩子做错了题',d:'「没关系，我们一起看看哪里不太明白」',n:'「怎么又错了？这么简单都不会」'},{s:'孩子主动学习',d:'「你自己开始学习啦？太了不起了！」',n:'「早该学了，还不快做」'},{s:'孩子想休息',d:'「你学了好久呢，休息一下吧」',n:'「才学多久就要玩了」'}]},{t:'广东话小贴士',i:'🗣️',tips:[{s:'孩子说听不懂老师的话',d:'「没关系，慢慢来，多听几次就熟了」',n:'「你要学会适应啊」'},{s:'孩子说出广东话词汇',d:'「哇，你学会了广东话！好厉害！」',n:'「发音不对，要这样说...」'},{s:'孩子不敢和同学说话',d:'「试试用一个广东话词打招呼，同学们会很开心的」',n:'「你怎么不跟同学说话」'}]},{t:'功课辅导策略',i:'📝',tips:[{s:'繁体字看不懂',d:'「按一下魔术棒就能看到简体啦，多看几次就记住了」',n:'「繁体字都看不懂怎么办」'},{s:'数学术语不理解',d:'「这个"余下"就是"剩下"的意思，用减法」',n:'「这都不懂？上课有没有听」'},{s:'孩子说功课太多',d:'「我们把它分成小块，做完一小块休息5分钟」',n:'「人家都做完了你还在磨蹭」'}]},{t:'屏幕时间管理',i:'⏰',tips:[{s:'孩子想打游戏不想学习',d:'「先完成今天的任务，宠物就升级了！然后可以玩一会儿」',n:'「不许打游戏！」'},{s:'孩子已经玩了很久手机',d:'「今天的任务还没完成呢，我们一起做吧」',n:'「又打机！收起来！」'},{s:'想设定规则',d:'「我们约定：做完学习任务 = 30分钟游戏时间」',n:'「以后都不许打游戏」'}]}];
+
+// ===== 跨境術語對照表 =====
+const TERM_TABLE=[
+  {hk:'呈分試',cn:'校内排名考',note:'小五小六，影響升中派位'},
+  {hk:'Banding',cn:'派位组别',note:'按成績分Band 1-3'},
+  {hk:'小息',cn:'课间休息',note:'15-20分鐘自由活動'},
+  {hk:'功課',cn:'作业',note:'每日都有，量較多'},
+  {hk:'測驗',cn:'小考',note:'每月1-2次'},
+  {hk:'常識科',cn:'常识课',note:'含科學+社會'},
+  {hk:'美勞',cn:'手工/美术',note:'動手做嘢為主'},
+  {hk:'體育堂',cn:'体育课',note:'要穿運動服'},
+  {hk:'班主任',cn:'班主任',note:'通常教主科'},
+  {hk:'家課冊',cn:'作业登记本',note:'每日抄低功課'},
+  {hk:'手冊',cn:'学生手册',note:'記錄行為+功課'},
+  {hk:'通告',cn:'通知单',note:'要簽回條'},
+  {hk:'校服',cn:'校服',note:'有夏季/冬季/運動裝'},
+  {hk:'利是',cn:'红包',note:'雙數金額，避開4'},
+];
 
 // ===== 工具函數 =====
 function $(s){return document.getElementById(s)}
@@ -364,66 +403,70 @@ function home(){show('pg-home');updHome()}
 function go(p){show('pg-'+p);if(p==='cs')renderCS();if(p==='ks')renderKS();if(p==='ms')renderMS();if(p==='ps')renderPS();if(p==='fun')renderFun();if(p==='family')renderFamily()}
 function tab(t){document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('on',['home','pet','parent'][i]===t));if(t==='home'){show('pg-home');updHome()}if(t==='pet'){show('pg-pet');renderPet()}if(t==='parent'){show('pg-par');renderPar()}}
 
-function addXP(n,cat){G.xp+=n;G.tXP+=n;if(cat&&G.score[cat]!==undefined)G.score[cat]+=n;let nl=G.lv;for(let i=LVS.length-1;i>=0;i--)if(G.xp>=LVS[i].x){nl=LVS[i].l;break}const oldLv=G.lv;G.lv=nl;
-  // 檢查支柱解鎖
-  if(nl>oldLv)checkUnlocks(nl)}
+function addXP(n,cat){G.xp+=n;G.tXP+=n;if(cat&&G.score[cat]!==undefined)G.score[cat]+=n;let nl=G.lv;for(let i=LVS.length-1;i>=0;i--)if(G.xp>=LVS[i].x){nl=LVS[i].l;break}const oldLv=G.lv;G.lv=nl;if(nl>oldLv)checkUnlocks(nl)}
 function correct(cat){G.streak++;G.tC++;G.tT++;G.pH=Math.min(100,G.pH+5);addXP(10,cat);G.coins+=5}
 function wrong(){G.streak=0;G.tT++;G.pH=Math.max(0,G.pH-3)}
 
-// ===== 支柱解鎖檢查 =====
 function checkUnlocks(lv){
   PILLARS.forEach(p=>{
     if(!G.unlocked[p.id]&&lv>=p.unlockAt){
       G.unlocked[p.id]=true;
-      // 顯示解鎖彈窗
-      $('uc-icon').textContent=p.icon;
-      $('uc-title').textContent='新領域解鎖！';
+      $('uc-icon').textContent=p.icon;$('uc-title').textContent='新領域解鎖！';
       $('uc-desc').textContent='「'+p.name+'」已經開放！你可以探索更多任務啦！';
       $('unlock-modal').classList.add('on');
     }
   });
 }
 
-// ===== 首頁更新 =====
+// ===== 兒童首頁更新（RPG 極簡風）=====
 function updHome(){
   initSocialTask();
   const pet=PETS.find(p=>p.id===G.pet);
-  $('h-pe').textContent=pet.e;$('h-pn').textContent=pet.n;
-  $('h-pm').textContent=G.pH>70?'😊 好開心！':G.pH>40?'🙂 還可以':'😢 唔開心...';
-  $('h-lv').textContent='Lv.'+G.lv;$('h-co').textContent=G.coins;$('h-sk').textContent=G.streak;
+  // 龍寵物大卡
+  $('home-pet-card').innerHTML=`
+    <span class="home-pet-emoji">${pet.e}</span>
+    <div class="home-pet-name">${pet.n}</div>
+    <div class="home-pet-mood">${G.pH>70?'😊 好開心！':G.pH>40?'🙂 還可以':'😢 唔開心...'}</div>
+    <div class="home-pet-stats">
+      <div class="home-pet-stat"><div class="hps-val">Lv.${G.lv}</div><div class="hps-label">等級</div></div>
+      <div class="home-pet-stat"><div class="hps-val">${G.coins}</div><div class="hps-label">🪙 金幣</div></div>
+      <div class="home-pet-stat"><div class="hps-val">${G.streak}</div><div class="hps-label">🔥 連擊</div></div>
+    </div>`;
+  // 等級進度
   const cx=LVS.find(l=>l.l===G.lv).x,nx=LVS.find(l=>l.l===G.lv+1)?.x||1500;
   const pct=(G.xp-cx)/(nx-cx)*100;
-  $('h-xpb').style.width=pct+'%';$('h-xpt').textContent=G.xp+' / '+nx+' XP';
   const needNext=nx-G.xp;
-  $('h-lvl-hint').textContent='还差 '+needNext+' 分升級';
+  const cl=LVS.find(l=>l.l===G.lv);
+  $('home-lvl-progress').innerHTML=`
+    <div class="lvl-top"><span class="lvl-badge">Lv.${G.lv}</span><span class="lvl-title">${cl.t}</span><span class="lvl-hint-home">还差 ${needNext} 分升級</span></div>
+    <div class="lvl-bar"><div class="lvl-bar-fill" style="width:${pct}%"></div></div>
+    <div class="lvl-bar-text">${G.xp} / ${nx} XP</div>`;
   // 體力
   $('h-stv').textContent=G.stamina+'/'+G.maxStamina;
   const stf=$('h-stf');stf.style.width=(G.stamina/G.maxStamina*100)+'%';
   stf.className='stf '+(G.stamina>60?'high':G.stamina>30?'mid':'low');
-  // 社交任務
-  const sc=$('social-card');
-  if(G.parentConfirm){sc.innerHTML=`<div class="sc-title">🌟 ${G.socialTask.t}</div><div class="sc-desc">${G.socialTask.d}</div><button class="social-btn done">✅ 已完成！+${G.socialTask.r}XP + 🎨寵物皮膚</button>`}
-  else if(G.socialDone){sc.innerHTML=`<div class="sc-title">🌟 ${G.socialTask.t}</div><div class="sc-desc">${G.socialTask.d}</div><button class="social-btn pending">✅ 孩子已完成</button><button class="social-btn parent-confirm" onclick="confirmSocial()">👩 家長確認</button>`}
-  else{sc.innerHTML=`<div class="sc-title">🌟 ${G.socialTask.t}</div><div class="sc-desc">${G.socialTask.d}</div><button class="social-btn pending" onclick="G.socialDone=true;updHome()">完成任務</button>`}
-  // 每日任務
-  const dailys=['life','lang','acad','fun','family'];
-  const dIcons=['🗺️','🗣️','📝','🎮','🏠'];
-  dailys.forEach((d,i)=>{
-    const el=$('d-'+d);if(!el)return;
-    el.classList.toggle('dn',G.daily[d]);
-    el.querySelector('.ci').textContent=G.daily[d]?'✅':dIcons[i];
+  // 今日任務（最多3個）
+  const quests=getTodayQuests();
+  let qh=`<div class="quest-title">⚔️ 今日任務</div>`;
+  quests.forEach(q=>{
+    const done=G.daily[q.pillar];
+    qh+=`<div class="quest-card ${q.cls}${done?' qc-done':''}" onclick="${q.action}">
+      <div class="quest-icon">${done?'✅':q.icon}</div>
+      <div class="quest-body"><div class="quest-name">${q.name}</div><div class="quest-sub">${done?'已完成！':q.sub}</div></div>
+      <div class="${done?'quest-done-icon':'quest-arrow'}">${done?'':('›')}</div>
+    </div>`;
   });
-  // 五大支柱
-  renderPillars();
-  // 得分面板
-  renderScorePanel();
+  $('home-quests').innerHTML=qh;
 }
 
-// ===== 五大支柱渲染 =====
-function renderPillars(){
-  const h=PILLARS.map(p=>{
+// ===== 支柱總覽頁（從「更多」進入）=====
+function renderPillarHub(){
+  $('pd-t').textContent='🗺️ 任務領域';
+  let h=`<div style="font-size:13px;color:var(--txtL);margin-bottom:14px">選擇一個領域開始任務！</div>`;
+  h+=`<div class="pillars">`;
+  PILLARS.forEach(p=>{
     const locked=!G.unlocked[p.id];
-    return `<div class="pillar ${p.cls}${locked?' locked':''}" ${locked?'':`onclick="openPillar('${p.id}')"`}>
+    h+=`<div class="pillar ${p.cls}${locked?' locked':''}" ${locked?'':`onclick="openPillar('${p.id}')"`}>
       <div class="pi-icon">${p.icon}</div>
       <div class="pi-body">
         <div class="pi-title">${p.name}${locked?'<span class="pi-badge" style="background:var(--txtL)">Lv.'+p.unlockAt+' 解鎖</span>':''}</div>
@@ -431,8 +474,19 @@ function renderPillars(){
       </div>
       <div class="pi-arrow">${locked?'🔒':'›'}</div>
     </div>`;
-  }).join('');
-  $('pillar-list').innerHTML=h;
+  });
+  h+=`</div>`;
+  // 社交任務
+  initSocialTask();
+  h+=`<div class="st">🌟 今日社交任務</div>`;
+  if(G.parentConfirm){h+=`<div class="social-card-mini"><span class="scm-title">✅ ${G.socialTask.t}</span> — 已完成！+${G.socialTask.r}XP</div>`}
+  else if(G.socialDone){h+=`<div class="social-card-mini"><span class="scm-title">✅ ${G.socialTask.t}</span> — 等待家長確認</div>`}
+  else{h+=`<div class="social-card-mini"><span class="scm-title">${G.socialTask.t}</span> — ${G.socialTask.d} <button style="background:var(--pri);color:#fff;border-radius:8px;padding:4px 12px;font-size:12px;font-weight:700;margin-left:8px" onclick="G.socialDone=true;renderPillarHub()">完成</button></div>`}
+  // 得分面板
+  h+=`<div class="st">📊 今日得分</div>`;
+  h+=renderScorePanelHTML();
+  $('pd-b').innerHTML=h;
+  go('pd');
 }
 
 function openPillar(id){
@@ -454,22 +508,16 @@ function openPillar(id){
   if(id==='fun'){
     h+=`<div style="font-size:15px;font-weight:700;margin:16px 0 10px;color:var(--amber)">🧊 破冰任務</div>`;
     h+=`<div style="font-size:13px;color:var(--txtL);margin-bottom:12px">通過共同興趣打開話題，融入同學圈子！</div>`;
-    ICE_TASKS.forEach((t,i)=>{
-      h+=`<div class="ice-card"><div class="ice-q">${t.tag} ${t.q}</div><div class="ice-d">${t.d}</div><div class="ice-r">+${t.r} XP</div></div>`;
-    });
+    ICE_TASKS.forEach(t=>{h+=`<div class="ice-card"><div class="ice-q">${t.tag} ${t.q}</div><div class="ice-d">${t.d}</div><div class="ice-r">+${t.r} XP</div></div>`});
   }
   if(id==='family'){
     h+=`<div style="font-size:15px;font-weight:700;margin:16px 0 10px;color:var(--rose)">🏠 家園任務</div>`;
     h+=`<div style="font-size:13px;color:var(--txtL);margin-bottom:12px">幫手做家務，做個有禮貌嘅好孩子！</div>`;
-    FAMILY_TASKS.forEach((t,i)=>{
-      h+=`<div class="ice-card" style="background:linear-gradient(135deg,#FFF1F2,#FECDD3);border-color:var(--rose)"><div class="ice-q">${t.tag} ${t.q}</div><div class="ice-d">${t.d}</div><div class="ice-r" style="color:var(--rose)">+${t.r} XP</div></div>`;
-    });
+    FAMILY_TASKS.forEach(t=>{h+=`<div class="ice-card" style="background:linear-gradient(135deg,#FFF1F2,#FECDD3);border-color:var(--rose)"><div class="ice-q">${t.tag} ${t.q}</div><div class="ice-d">${t.d}</div><div class="ice-r" style="color:var(--rose)">+${t.r} XP</div></div>`});
   }
-  $('pd-b').innerHTML=h;
-  go('pd');
+  $('pd-b').innerHTML=h;go('pd');
 }
 
-// 本土地圖 - 香港趣聞
 function renderLocalFacts(){
   const facts=[
     {icon:'🚇',t:'港鐵冷知識',d:'香港地鐵叫「港鐵 MTR」，係全世界最繁忙嘅地鐵系統之一！'},
@@ -478,14 +526,11 @@ function renderLocalFacts(){
     {icon:'🏫',t:'學校文化',d:'香港小學有「小息」時間，同學會喺操場玩同食小食！'}
   ];
   let h=`<div style="font-size:15px;font-weight:700;margin:16px 0 10px;color:var(--green)">🗺️ 香港趣聞</div>`;
-  facts.forEach(f=>{
-    h+=`<div class="ice-card" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-color:var(--green)"><div class="ice-q">${f.icon} ${f.t}</div><div class="ice-d">${f.d}</div></div>`;
-  });
+  facts.forEach(f=>{h+=`<div class="ice-card" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-color:var(--green)"><div class="ice-q">${f.icon} ${f.t}</div><div class="ice-d">${f.d}</div></div>`});
   return h;
 }
 
-// ===== 得分面板渲染 =====
-function renderScorePanel(){
+function renderScorePanelHTML(){
   const cats=[
     {id:'life',name:'本土地圖',icon:'🗺️',color:'var(--green)'},
     {id:'lang',name:'語言魔法',icon:'🗣️',color:'var(--sec)'},
@@ -493,18 +538,17 @@ function renderScorePanel(){
     {id:'fun',name:'娛樂時光',icon:'🎮',color:'var(--amber)'},
     {id:'family',name:'家園羈絆',icon:'🏠',color:'var(--rose)'}
   ];
-  const maxScore=200;// 單類最大顯示分
-  let h=cats.map(c=>{
-    const v=G.score[c.id]||0;
-    const pct=Math.min(v/maxScore*100,100);
+  const maxScore=200;
+  let h=`<div class="score-panel">`;
+  h+=cats.map(c=>{
+    const v=G.score[c.id]||0;const pct=Math.min(v/maxScore*100,100);
     return `<div class="score-row"><span class="score-icon">${c.icon}</span><div class="score-info"><div class="score-name">${c.name}</div><div class="score-bar"><div class="score-fill" style="width:${pct}%;background:${c.color}"></div></div></div><span class="score-val" style="color:${c.color}">${v}</span></div>`;
   }).join('');
-  const total=cats.reduce((s,c)=>s+(G.score[c.id]||0),0);
   const cx=LVS.find(l=>l.l===G.lv).x,nx=LVS.find(l=>l.l===G.lv+1)?.x||1500;
-  const needNext=nx-G.xp;
   h+=`<div class="score-total"><span>今日總得分</span><span class="stv">${G.tXP}</span></div>`;
-  h+=`<div class="score-lvl-hint">还差 ${needNext} 分升級 Lv.${G.lv+1}</div>`;
-  $('score-panel').innerHTML=h;
+  h+=`<div class="score-lvl-hint">还差 ${nx-G.xp} 分升級 Lv.${G.lv+1}</div>`;
+  h+=`</div>`;
+  return h;
 }
 
 function confirmSocial(){G.parentConfirm=true;addXP(G.socialTask.r,'life');G.coins+=10;updHome()}
@@ -607,9 +651,7 @@ function phNext(){if(PHG.idx>=PHG.set.words.length-1){G.daily.lang=true;if(PHG.s
 function renderFun(){
   let h=`<div style="font-size:14px;color:var(--txtL);margin-bottom:16px">通過流行文化打開話題，融入同學圈子！</div>`;
   h+=`<div style="font-size:17px;font-weight:700;margin-bottom:10px;color:var(--amber)">🧊 破冰任務</div>`;
-  ICE_TASKS.forEach((t,i)=>{
-    h+=`<div class="ice-card"><div class="ice-q">${t.tag} ${t.q}</div><div class="ice-d">${t.d}</div><div class="ice-r">+${t.r} XP</div></div>`;
-  });
+  ICE_TASKS.forEach(t=>{h+=`<div class="ice-card"><div class="ice-q">${t.tag} ${t.q}</div><div class="ice-d">${t.d}</div><div class="ice-r">+${t.r} XP</div></div>`});
   h+=`<div style="font-size:17px;font-weight:700;margin:16px 0 10px;color:var(--amber)">🇭🇰 香港流行文化小課堂</div>`;
   h+=`<div class="ice-card" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-color:var(--amber)"><div class="ice-q">📺 必知卡通IP</div><div class="ice-d">香港小朋友鍾意嘅卡通：多啦A夢、蠟筆小新、鬼滅之刃、間諜過家家。知道呢啲就可以同同學傾偈啦！</div></div>`;
   h+=`<div class="ice-card" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-color:var(--amber)"><div class="ice-q">🎮 熱門遊戲</div><div class="ice-d">香港小學生之間流行嘅遊戲：Minecraft、Roblox、蛋仔派對。問同學玩邊個，就可以一齊玩！</div></div>`;
@@ -621,9 +663,7 @@ function renderFun(){
 function renderFamily(){
   let h=`<div style="font-size:14px;color:var(--txtL);margin-bottom:16px">幫手做家務，做個有禮貌嘅好孩子！</div>`;
   h+=`<div style="font-size:17px;font-weight:700;margin-bottom:10px;color:var(--rose)">🏠 今日家園任務</div>`;
-  FAMILY_TASKS.forEach((t,i)=>{
-    h+=`<div class="ice-card" style="background:linear-gradient(135deg,#FFF1F2,#FECDD3);border-color:var(--rose)"><div class="ice-q">${t.tag} ${t.q}</div><div class="ice-d">${t.d}</div><div class="ice-r" style="color:var(--rose)">+${t.r} XP</div></div>`;
-  });
+  FAMILY_TASKS.forEach(t=>{h+=`<div class="ice-card" style="background:linear-gradient(135deg,#FFF1F2,#FECDD3);border-color:var(--rose)"><div class="ice-q">${t.tag} ${t.q}</div><div class="ice-d">${t.d}</div><div class="ice-r" style="color:var(--rose)">+${t.r} XP</div></div>`});
   h+=`<div style="font-size:17px;font-weight:700;margin:16px 0 10px;color:var(--rose)">🙏 禮儀小課堂</div>`;
   h+=`<div class="ice-card" style="background:linear-gradient(135deg,#FFF1F2,#FECDD3);border-color:var(--rose)"><div class="ice-q">👋 見人要打招呼</div><div class="ice-d">見到長輩要叫人，見到老師要講「早晨」，係基本禮貌！</div></div>`;
   h+=`<div class="ice-card" style="background:linear-gradient(135deg,#FFF1F2,#FECDD3);border-color:var(--rose)"><div class="ice-q">🥢 食飯禮儀</div><div class="ice-d">食飯時唔好玩手機，要等長輩先起筷，食完要講「我食完啦」！</div></div>`;
@@ -645,41 +685,49 @@ function renderPet(){
 }
 function setPet(id){if(G.lv>=PETS.find(p=>p.id===id).ul){G.pet=id;renderPet()}}
 
-// ===== 家長 =====
+// ===== 家長中心（擴充版）=====
 let chatMsgs=[{role:'bot',text:'你好！我係 HKBridge 小助手 🤖 有咩可以幫到你？你可以直接打字，或者撳下面嘅快捷問題。'}];
 function renderPar(){
   const acc=G.tT?Math.round(G.tC/G.tT*100):0,dn=Object.values(G.daily).filter(Boolean).length;
-  let h=`<div style="margin-bottom:14px"><div class="pht">👨‍👩‍👧 家長中心</div><div class="phs">新來港家庭融入導航系統</div></div>`;
+  let h=`<div style="margin-bottom:14px"><div class="pht">👨‍👩‍👧 家長中心</div><div class="phs">新來港家庭融入導航系統（简体版）</div></div>`;
+  // 緊急資訊
+  h+=`<div class="emergency-card"><div class="ec-title">🚨 緊急資訊</div>
+    <div class="ec-row"><span class="ec-label">急症室</span><span class="ec-val">24小时开放，无需预约，直接前往最近医院</span></div>
+    <div class="ec-row"><span class="ec-label">报警</span><span class="ec-val">999（紧急）/ 2527 7177（非紧急）</span></div>
+    <div class="ec-row"><span class="ec-label">学校社工</span><span class="ec-val">联系班主任转介，或致电学校查询</span></div>
+    <div class="ec-row"><span class="ec-label">教育署</span><span class="ec-val">3698 4100（区域教育服务处）</span></div>
+    <div class="ec-row"><span class="ec-label">民政处</span><span class="ec-val">各区均有，可协助新来港人士</span></div>
+  </div>`;
   // AI 客服
-  h+=`<div class="chat-box"><div class="chat-title">🤖 HKBridge 小助手</div><div class="chat-msgs" id="chat-msgs">${chatMsgs.map(m=>`<div class="chat-bubble ${m.role}">${m.text}</div>`).join('')}</div><div class="chat-quick">${FAQ_DB.map(f=>`<button class="chat-qbtn" onclick="askFAQ('${f.q}')">${f.q}</button>`).join('')}</div><div class="chat-input-row"><input class="chat-input" id="chat-inp" placeholder="用簡體字提問..." onkeydown="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()">發送</button></div></div>`;
+  h+=`<div class="chat-box"><div class="chat-title">🤖 HKBridge 小助手</div><div class="chat-msgs" id="chat-msgs">${chatMsgs.map(m=>`<div class="chat-bubble ${m.role}">${m.text}</div>`).join('')}</div><div class="chat-quick">${FAQ_DB.map(f=>`<button class="chat-qbtn" onclick="askFAQ('${f.q}')">${f.q}</button>`).join('')}</div><div class="chat-input-row"><input class="chat-input" id="chat-inp" placeholder="用简体字提问..." onkeydown="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()">发送</button></div></div>`;
   // 今日概況
-  h+=`<div class="smc"><div class="cmt">📊 今日得分概況</div><div class="sms"><div><div class="smv">${G.tXP}</div><div class="sml">XP</div></div><div><div class="smv" style="color:${acc>=70?'var(--ok)':acc>=40?'var(--warn)':'var(--err)'}">${acc}%</div><div class="sml">正確率</div></div><div><div class="smv">${dn}/5</div><div class="sml">支柱</div></div></div><div class="pbg2"><div class="pf2" style="width:${dn/5*100}%"></div></div></div>`;
-  // 五大支柱完成情況
+  h+=`<div class="smc"><div class="cmt">📊 今日得分概况</div><div class="sms"><div><div class="smv">${G.tXP}</div><div class="sml">XP</div></div><div><div class="smv" style="color:${acc>=70?'var(--ok)':acc>=40?'var(--warn)':'var(--err)'}">${acc}%</div><div class="sml">正确率</div></div><div><div class="smv">${dn}/5</div><div class="sml">支柱</div></div></div><div class="pbg2"><div class="pf2" style="width:${dn/5*100}%"></div></div></div>`;
+  // 五大支柱
   h+=`<div class="smc"><div class="cmt">🗺️ 五大支柱</div>`;
-  const pNames=[{id:'life',n:'本土地圖',i:'🗺️'},{id:'lang',n:'語言魔法',i:'🗣️'},{id:'acad',n:'學業試煉',i:'📝'},{id:'fun',n:'娛樂時光',i:'🎮'},{id:'family',n:'家園羈絆',i:'🏠'}];
+  const pNames=[{id:'life',n:'本土地图',i:'🗺️'},{id:'lang',n:'语言魔法',i:'🗣️'},{id:'acad',n:'学业试炼',i:'📝'},{id:'fun',n:'娱乐时光',i:'🎮'},{id:'family',n:'家园羁绊',i:'🏠'}];
   pNames.forEach(p=>{
     const unlocked=G.unlocked[p.id];
-    h+=`<div class="sur"><span class="sui">${p.i}</span><span class="sun">${p.n}</span><span class="sud${G.daily[p.id]?' dn':''}">${!unlocked?'🔒 未解鎖':G.daily[p.id]?'✓ 已完成':'未完成'}</span></div>`;
+    h+=`<div class="sur"><span class="sui">${p.i}</span><span class="sun">${p.n}</span><span class="sud${G.daily[p.id]?' dn':''}">${!unlocked?'🔒 未解锁':G.daily[p.id]?'✓ 已完成':'未完成'}</span></div>`;
   });
   h+=`</div>`;
   // 得分明細
-  h+=`<div class="smc"><div class="cmt">📈 得分明細</div>`;
-  const cats=[{id:'life',n:'本土地圖',i:'🗺️'},{id:'lang',n:'語言魔法',i:'🗣️'},{id:'acad',n:'學業試煉',i:'📝'},{id:'fun',n:'娛樂時光',i:'🎮'},{id:'family',n:'家園羈絆',i:'🏠'}];
-  cats.forEach(c=>{
-    h+=`<div class="sur"><span class="sui">${c.i}</span><span class="sun">${c.n}</span><span class="sud dn">${G.score[c.id]||0} XP</span></div>`;
-  });
+  h+=`<div class="smc"><div class="cmt">📈 得分明细</div>`;
+  const cats=[{id:'life',n:'本土地图',i:'🗺️'},{id:'lang',n:'语言魔法',i:'🗣️'},{id:'acad',n:'学业试炼',i:'📝'},{id:'fun',n:'娱乐时光',i:'🎮'},{id:'family',n:'家园羁绊',i:'🏠'}];
+  cats.forEach(c=>{h+=`<div class="sur"><span class="sui">${c.i}</span><span class="sun">${c.n}</span><span class="sud dn">${G.score[c.id]||0} XP</span></div>`});
   h+=`</div>`;
+  // 跨境術語對照表
+  h+=`<div class="smc"><div class="cmt">📖 跨境术语对照表</div><table class="term-table"><tr><th>香港用语</th><th>内地用语</th><th>说明</th></tr>${TERM_TABLE.map(t=>`<tr><td><b>${t.hk}</b></td><td>${t.cn}</td><td>${t.note}</td></tr>`).join('')}</table></div>`;
   // 輔導指南
-  h+=`<div class="st">💡 輔導與誇獎指南</div>`;
-  PG.forEach(g=>{h+=`<div class="guc"><div class="guh" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'"><span class="gui">${g.i}</span><span class="gut">${g.t}</span><span class="gua">▸</span></div><div class="gub" style="display:none">${g.tips.map(t=>`<div class="tpi"><div class="tps">${t.s}</div><div class="tpd"><div class="tpdl">✅ 這樣說</div><div class="tpdt">${t.d}</div></div><div class="tpn"><div class="tpnl">❌ 別這樣說</div><div class="tpnt">${t.n}</div></div></div>`).join('')}</div></div>`});
+  h+=`<div class="st">💡 辅导与夸奖指南</div>`;
+  PG.forEach(g=>{h+=`<div class="guc"><div class="guh" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'"><span class="gui">${g.i}</span><span class="gut">${g.t}</span><span class="gua">▸</span></div><div class="gub" style="display:none">${g.tips.map(t=>`<div class="tpi"><div class="tps">${t.s}</div><div class="tpd"><div class="tpdl">✅ 这样说</div><div class="tpdt">${t.d}</div></div><div class="tpn"><div class="tpnl">❌ 别这样说</div><div class="tpnt">${t.n}</div></div></div>`).join('')}</div></div>`});
   $('pg-par').innerHTML=h;
   setTimeout(()=>{const el=document.getElementById('chat-msgs');if(el)el.scrollTop=el.scrollHeight},50);
 }
-function askFAQ(q){chatMsgs.push({role:'user',text:q});const f=FAQ_DB.find(x=>x.q===q);chatMsgs.push({role:'bot',text:f?f.a:'抱歉，我暫時搵唔到相關資訊。你可以試吓用其他關鍵字提問。'});renderPar()}
+function askFAQ(q){chatMsgs.push({role:'user',text:q});const f=FAQ_DB.find(x=>x.q===q);chatMsgs.push({role:'bot',text:f?f.a:'抱歉，我暂时找不到相关信息。你可以试试用其他关键词提问。'});renderPar()}
 function sendChat(){const inp=$('chat-inp');const q=inp.value.trim();if(!q)return;chatMsgs.push({role:'user',text:q});
   const found=FAQ_DB.find(f=>f.k.some(k=>q.includes(k)));
   if(found){chatMsgs.push({role:'bot',text:found.a})}
-  else{chatMsgs.push({role:'bot',text:'抱歉，我暫時搵唔到相關資訊。你可以試吓撳下面嘅快捷問題，或者用其他關鍵字提問，例如「欺凌」、「功課」、「銀行」等。'})}
+  else{chatMsgs.push({role:'bot',text:'抱歉，我暂时找不到相关信息。你可以试试按下面的快捷问题，或者用其他关键词提问，例如「欺凌」、「功课」、「银行」等。'})}
   inp.value='';renderPar()}
 
 updHome();
