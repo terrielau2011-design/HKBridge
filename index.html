@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>HK橋樑 v3.1 - 新來港家庭融入導航系統</title>
+<title>HK橋樑 v3.2 - 新來港家庭融入導航系統</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--pri:#FF6B35;--sec:#4ECDC4;--acc:#FFE66D;--pur:#A855F7;--pink:#F472B6;--blue:#3B82F6;--green:#10B981;--rose:#F43F5E;--amber:#F59E0B;--bg:#FFF8F0;--card:#fff;--txt:#1F2937;--txtL:#6B7280;--ok:#10B981;--err:#EF4444;--warn:#F59E0B;--r:14px;--sh:0 2px 8px rgba(0,0,0,.08)}
@@ -22,6 +22,11 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 .lh .bb{font-size:16px;color:var(--pri);font-weight:600;padding:6px 10px;min-height:44px}
 .lh .lt{font-size:18px;font-weight:700}.lh .ls{font-size:18px;font-weight:700;color:var(--pri)}
 .lb{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px}
+
+/* 版本號 */
+.ver-badge{display:inline-block;background:var(--txt);color:var(--bg);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.5px;vertical-align:middle}
+.ver-home{position:absolute;top:12px;right:14px;z-index:2}
+.ver-tab{text-align:center;font-size:10px;color:var(--txtL);padding:2px 0 4px;background:var(--card);font-weight:600;letter-spacing:.3px}
 
 /* ===== 兒童首頁 - RPG 極簡風 ===== */
 .home-pet-card{background:linear-gradient(135deg,#FFF5F0,#FFEDD5);border-radius:22px;padding:24px;text-align:center;margin-bottom:18px;box-shadow:0 4px 16px rgba(255,107,53,.12);position:relative;overflow:hidden}
@@ -221,7 +226,7 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 <!-- ===== 兒童首頁 - RPG 極簡風 ===== -->
 <div class="page on" id="pg-home">
   <!-- 龍寵物大卡 -->
-  <div class="home-pet-card" id="home-pet-card"></div>
+  <div class="home-pet-card" id="home-pet-card"><span class="ver-badge ver-home">v3.2</span></div>
   <!-- 等級進度 -->
   <div class="lvl-progress" id="home-lvl-progress"></div>
   <!-- 體力 -->
@@ -264,6 +269,7 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 <div class="page pp" id="pg-par"></div>
 <!-- ===== TAB ===== -->
 <div class="tab-bar"><button class="tab-btn on" onclick="tab('home')"><span class="ti">🏠</span>主頁</button><button class="tab-btn" onclick="tab('pet')"><span class="ti">🐲</span>寵物</button><button class="tab-btn" onclick="tab('parent')"><span class="ti">👨‍👩‍👧</span>家長</button></div>
+<div class="ver-tab">HKBridge v3.2</div>
 <!-- 體力不足彈窗 -->
 <div class="stamina-modal" id="stamina-modal"><div class="stamina-modal-content"><div class="sm-emoji">💤</div><div class="sm-title">體力不足！</div><div class="sm-desc">休息一下再來吧～每30分鐘會回復體力哦</div><button class="sm-btn" onclick="document.getElementById('stamina-modal').classList.remove('on')">知道了</button></div></div>
 <!-- 解鎖提示彈窗 -->
@@ -689,7 +695,7 @@ function setPet(id){if(G.lv>=PETS.find(p=>p.id===id).ul){G.pet=id;renderPet()}}
 let chatMsgs=[{role:'bot',text:'你好！我係 HKBridge 小助手 🤖 有咩可以幫到你？你可以直接打字，或者撳下面嘅快捷問題。'}];
 function renderPar(){
   const acc=G.tT?Math.round(G.tC/G.tT*100):0,dn=Object.values(G.daily).filter(Boolean).length;
-  let h=`<div style="margin-bottom:14px"><div class="pht">👨‍👩‍👧 家長中心</div><div class="phs">新來港家庭融入導航系統（简体版）</div></div>`;
+  let h=`<div style="margin-bottom:14px"><div class="pht">👨‍👩‍👧 家长中心 <span class="ver-badge">v3.2</span></div><div class="phs">新来港家庭融入导航系统（简体版）</div></div>`;
   // 緊急資訊
   h+=`<div class="emergency-card"><div class="ec-title">🚨 緊急資訊</div>
     <div class="ec-row"><span class="ec-label">急症室</span><span class="ec-val">24小时开放，无需预约，直接前往最近医院</span></div>
